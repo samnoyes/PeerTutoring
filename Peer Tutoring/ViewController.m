@@ -17,6 +17,42 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    NSURL* url = [NSURL URLWithString:[@"http://localhost:4730" stringByAppendingPathComponent:@"/quotes/"]];
+    NSLog(@"%@", url);
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
+    request.HTTPMethod = @"GET";
+    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    NSURLSessionConfiguration* config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession* session = [NSURLSession sessionWithConfiguration:config];
+    NSURLSessionDataTask* dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error == nil) {
+            NSDictionary* responseArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+            
+            NSLog(@"Response Array: %@", responseArray);
+            
+        }
+        else {
+            NSLog(@"%@", error);
+        }
+    }];
+    
+    [dataTask resume];
+}
+
+- (void)parseAndAddLocations:(NSArray*)locations toArray:(NSMutableArray*)destinationArray //1
+{
+    for (id i in locations) {
+        NSLog(@"Object: %@", i);
+    }
+    //for (NSDictionary* item in locations) {
+       // Location* location = [[Location alloc] initWithDictionary:item]; //2
+        //[destinationArray addObject:location];
+    //}
+    /*
+    if (self.delegate) {
+        [self.delegate modelUpdated]; //3
+    }*/
 }
 
 - (void)didReceiveMemoryWarning {
