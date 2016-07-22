@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B31C924A1D41BB1A004F81F0 /* QuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B31C92491D41BB1A004F81F0 /* QuestionTableViewCell.m */; };
+		B31C924D1D41D87A004F81F0 /* QuestionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B31C924C1D41D87A004F81F0 /* QuestionDetailViewController.m */; };
+		B31C92501D41D977004F81F0 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = B31C924F1D41D977004F81F0 /* Question.m */; };
 		B333ABA21D3E917B00FDCCA4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B333ABA11D3E917B00FDCCA4 /* main.m */; };
 		B333ABA51D3E917B00FDCCA4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B333ABA41D3E917B00FDCCA4 /* AppDelegate.m */; };
-		B333ABA81D3E917B00FDCCA4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B333ABA71D3E917B00FDCCA4 /* ViewController.m */; };
+		B333ABA81D3E917B00FDCCA4 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B333ABA71D3E917B00FDCCA4 /* TableViewController.m */; };
 		B333ABAB1D3E917B00FDCCA4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B333ABA91D3E917B00FDCCA4 /* Main.storyboard */; };
 		B333ABAD1D3E917B00FDCCA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B333ABAC1D3E917B00FDCCA4 /* Assets.xcassets */; };
 		B333ABB01D3E917B00FDCCA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B333ABAE1D3E917B00FDCCA4 /* LaunchScreen.storyboard */; };
@@ -35,12 +38,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B31C92481D41BB1A004F81F0 /* QuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionTableViewCell.h; sourceTree = "<group>"; };
+		B31C92491D41BB1A004F81F0 /* QuestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionTableViewCell.m; sourceTree = "<group>"; };
+		B31C924B1D41D87A004F81F0 /* QuestionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionDetailViewController.h; sourceTree = "<group>"; };
+		B31C924C1D41D87A004F81F0 /* QuestionDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionDetailViewController.m; sourceTree = "<group>"; };
+		B31C924E1D41D977004F81F0 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Question.h; sourceTree = "<group>"; };
+		B31C924F1D41D977004F81F0 /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Question.m; sourceTree = "<group>"; };
 		B333AB9D1D3E917B00FDCCA4 /* Peer Tutoring.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Peer Tutoring.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B333ABA11D3E917B00FDCCA4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B333ABA31D3E917B00FDCCA4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B333ABA41D3E917B00FDCCA4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		B333ABA61D3E917B00FDCCA4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		B333ABA71D3E917B00FDCCA4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B333ABA61D3E917B00FDCCA4 /* TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		B333ABA71D3E917B00FDCCA4 /* TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		B333ABAA1D3E917B00FDCCA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B333ABAC1D3E917B00FDCCA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B333ABAF1D3E917B00FDCCA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -103,13 +112,19 @@
 			children = (
 				B333ABA31D3E917B00FDCCA4 /* AppDelegate.h */,
 				B333ABA41D3E917B00FDCCA4 /* AppDelegate.m */,
-				B333ABA61D3E917B00FDCCA4 /* ViewController.h */,
-				B333ABA71D3E917B00FDCCA4 /* ViewController.m */,
+				B333ABA61D3E917B00FDCCA4 /* TableViewController.h */,
+				B333ABA71D3E917B00FDCCA4 /* TableViewController.m */,
+				B31C92481D41BB1A004F81F0 /* QuestionTableViewCell.h */,
+				B31C92491D41BB1A004F81F0 /* QuestionTableViewCell.m */,
+				B31C924B1D41D87A004F81F0 /* QuestionDetailViewController.h */,
+				B31C924C1D41D87A004F81F0 /* QuestionDetailViewController.m */,
 				B333ABA91D3E917B00FDCCA4 /* Main.storyboard */,
 				B333ABAC1D3E917B00FDCCA4 /* Assets.xcassets */,
 				B333ABAE1D3E917B00FDCCA4 /* LaunchScreen.storyboard */,
 				B333ABB11D3E917B00FDCCA4 /* Info.plist */,
 				B333ABA01D3E917B00FDCCA4 /* Supporting Files */,
+				B31C924E1D41D977004F81F0 /* Question.h */,
+				B31C924F1D41D977004F81F0 /* Question.m */,
 			);
 			path = "Peer Tutoring";
 			sourceTree = "<group>";
@@ -270,7 +285,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B333ABA81D3E917B00FDCCA4 /* ViewController.m in Sources */,
+				B31C924D1D41D87A004F81F0 /* QuestionDetailViewController.m in Sources */,
+				B333ABA81D3E917B00FDCCA4 /* TableViewController.m in Sources */,
+				B31C924A1D41BB1A004F81F0 /* QuestionTableViewCell.m in Sources */,
+				B31C92501D41D977004F81F0 /* Question.m in Sources */,
 				B333ABA51D3E917B00FDCCA4 /* AppDelegate.m in Sources */,
 				B333ABA21D3E917B00FDCCA4 /* main.m in Sources */,
 			);
@@ -496,6 +514,7 @@
 				B333ABCC1D3E917B00FDCCA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B333ABCD1D3E917B00FDCCA4 /* Build configuration list for PBXNativeTarget "Peer TutoringTests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +523,7 @@
 				B333ABCF1D3E917B00FDCCA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B333ABD01D3E917B00FDCCA4 /* Build configuration list for PBXNativeTarget "Peer TutoringUITests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +532,7 @@
 				B333ABD21D3E917B00FDCCA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
