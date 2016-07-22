@@ -12,6 +12,6 @@
 
 @interface HTTPManager : NSObject
 + (NSArray<Comment *> *) getCommentsWithPostID: (NSInteger) ID;
-+ (NSArray<Question *> *) getQuestions;
++ (NSArray<Question *> *) getQuestionsWithCompletion: (void (^)()) completion;
 
 @end
