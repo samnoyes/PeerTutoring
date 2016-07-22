@@ -10,4 +10,12 @@
 
 @implementation Question
 
+- (id) initWithDictionary: (NSDictionary *) dict andID: (NSInteger) ID {
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
 @end
