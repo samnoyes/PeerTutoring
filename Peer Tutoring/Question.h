@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSString *author;
 @property (strong, nonatomic) NSString *subject;
 @property (strong, nonatomic) NSDate *creationDate;
+@property (nonatomic) NSInteger ID;
 @property (strong, nonatomic) NSArray<Comment *> *comments;
-- (id) initWithDictionary: (NSDictionary *) dict andID: (NSInteger) ID;
+- (id) initWithDictionary: (NSDictionary *) dict;
 @end
