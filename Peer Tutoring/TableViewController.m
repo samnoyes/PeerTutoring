@@ -21,7 +21,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.questions = [HTTPManager getQuestionsWithCompletion: ^(NSArray<Question *> *response){
+    [HTTPManager getQuestionsWithCompletion: ^(NSArray<Question *> *response){
         self.questions = response;
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
