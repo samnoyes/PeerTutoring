@@ -1,7 +1,6 @@
-#import "Comment.h"
-#import "HTTPManager.h"
+#import "GlobalVals.h"
 
-@implementation Comment
+@implementation GlobalVals
 
 + (GlobalVals *) sharedGlobalVals
 {
