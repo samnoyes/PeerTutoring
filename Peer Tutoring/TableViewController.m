@@ -9,6 +9,7 @@
 #import "TableViewController.h"
 #import "QuestionTableViewCell.h"
 #import "HTTPManager.h"
+#import "QuestionDetailViewController.h"
 
 
 @interface ViewController ()
@@ -50,7 +51,9 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    QuestionDetailViewController *vc = (QuestionDetailViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"questionDetail"];
+    vc.question = [self.questions objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

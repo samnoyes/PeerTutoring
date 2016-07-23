@@ -20,6 +20,7 @@
 		B333ABB01D3E917B00FDCCA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B333ABAE1D3E917B00FDCCA4 /* LaunchScreen.storyboard */; };
 		B333ABBB1D3E917B00FDCCA4 /* Peer_TutoringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B333ABBA1D3E917B00FDCCA4 /* Peer_TutoringTests.m */; };
 		B333ABC61D3E917B00FDCCA4 /* Peer_TutoringUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B333ABC51D3E917B00FDCCA4 /* Peer_TutoringUITests.m */; };
+		B3F342971D431C220076C37E /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F342961D431C220076C37E /* CommentTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,8 @@
 		B333ABC11D3E917B00FDCCA4 /* Peer TutoringUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Peer TutoringUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B333ABC51D3E917B00FDCCA4 /* Peer_TutoringUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Peer_TutoringUITests.m; sourceTree = "<group>"; };
 		B333ABC71D3E917B00FDCCA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B3F342951D431C220076C37E /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
+		B3F342961D431C220076C37E /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +125,8 @@
 				B333ABA71D3E917B00FDCCA4 /* TableViewController.m */,
 				B31C92481D41BB1A004F81F0 /* QuestionTableViewCell.h */,
 				B31C92491D41BB1A004F81F0 /* QuestionTableViewCell.m */,
+				B3F342951D431C220076C37E /* CommentTableViewCell.h */,
+				B3F342961D431C220076C37E /* CommentTableViewCell.m */,
 				B31C924B1D41D87A004F81F0 /* QuestionDetailViewController.h */,
 				B31C924C1D41D87A004F81F0 /* QuestionDetailViewController.m */,
 				B31C924E1D41D977004F81F0 /* Question.h */,
@@ -296,6 +301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B31C92531D4262E5004F81F0 /* Comment.m in Sources */,
+				B3F342971D431C220076C37E /* CommentTableViewCell.m in Sources */,
 				B31C924D1D41D87A004F81F0 /* QuestionDetailViewController.m in Sources */,
 				B333ABA81D3E917B00FDCCA4 /* TableViewController.m in Sources */,
 				B31C92561D42658F004F81F0 /* HTTPManager.m in Sources */,

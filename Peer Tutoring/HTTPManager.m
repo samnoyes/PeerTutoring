@@ -20,21 +20,21 @@
     NSURLSessionConfiguration* config = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession* session = [NSURLSession sessionWithConfiguration:config];
     NSURLSessionDataTask* dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSArray *questions;
+        NSArray *comments;
         NSMutableArray<Comment *> *finalArray = [[NSMutableArray alloc] init];
         
         if (error == nil) {
             NSArray* responseArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
             
             NSLog(@"Response Array: %@", responseArray);
-            questions = responseArray;
+            comments = responseArray;
             NSLog(@"%@", responseArray );
         }
         else {
             NSLog(@"%@", error);
         }
         
-        for (NSDictionary *d in questions) {
+        for (NSDictionary *d in comments) {
             Comment *c = [[Comment alloc] initWithDictionary: d];
             [finalArray addObject: c];
         }

@@ -7,6 +7,7 @@
 //
 
 #import "QuestionDetailViewController.h"
+#import "CommentTableViewCell.h"
 
 @interface QuestionDetailViewController ()
 
@@ -17,11 +18,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.subjectLabel setText:self.question.subject];
+    [self.questionTextView setText:self.question.questionText];
+    [self.authorLabel setText:self.question.author];
+    NSLog(@"%@", self.question.comments);
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.question.comments count];
+}
+
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentCell"];
+    [cell.commentTextView setText:[NSString stringWithFormat:@"%@: %@", [self.question.comments objectAtIndex:indexPath.row].author, [self.question.comments objectAtIndex:indexPath.row].commentText]];
+    return cell;
 }
 
 /*

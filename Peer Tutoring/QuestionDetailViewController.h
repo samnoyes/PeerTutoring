@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Question.h"
 
-@interface QuestionDetailViewController : UIViewController
-//@property (strong, nonatomic)
+@interface QuestionDetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UILabel *subjectLabel;
+@property (weak, nonatomic) IBOutlet UITextView *questionTextView;
+@property (weak, nonatomic) IBOutlet UILabel *authorLabel;
+@property (strong, nonatomic) Question *question;
 @end
