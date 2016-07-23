@@ -7,6 +7,7 @@
 //
 
 #import "Question.h"
+#import "HTTPManager.h"
 
 @implementation Question
 
