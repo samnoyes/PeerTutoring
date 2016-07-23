@@ -8,6 +8,7 @@
 
 #import "QuestionDetailViewController.h"
 #import "CommentTableViewCell.h"
+#import "WriteCommentTableViewCell.h"
 
 @interface QuestionDetailViewController ()
 
@@ -32,13 +33,20 @@
 }
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.question.comments count];
+    return [self.question.comments count]+1;
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentCell"];
-    [cell.commentTextView setText:[NSString stringWithFormat:@"%@: %@", [self.question.comments objectAtIndex:indexPath.row].author, [self.question.comments objectAtIndex:indexPath.row].commentText]];
-    return cell;
+    if (indexPath.row == [self.question.comments count]) {
+        WriteCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"writeCommentCell"];
+        [cell.commentTextView setUserInteractionEnabled:YES];
+        return cell;
+    }
+    else {
+        CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentCell"];
+        [cell.commentTextView setText:[NSString stringWithFormat:@"%@: %@", [self.question.comments objectAtIndex:indexPath.row].author, [self.question.comments objectAtIndex:indexPath.row].commentText]];
+        return cell;
+    }
 }
 
 /*

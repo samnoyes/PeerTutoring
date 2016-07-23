@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B301DD081D43BB87001C307C /* WriteCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B301DD071D43BB87001C307C /* WriteCommentTableViewCell.m */; };
 		B31C924A1D41BB1A004F81F0 /* QuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B31C92491D41BB1A004F81F0 /* QuestionTableViewCell.m */; };
 		B31C924D1D41D87A004F81F0 /* QuestionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B31C924C1D41D87A004F81F0 /* QuestionDetailViewController.m */; };
 		B31C92501D41D977004F81F0 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = B31C924F1D41D977004F81F0 /* Question.m */; };
@@ -41,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B301DD061D43BB87001C307C /* WriteCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteCommentTableViewCell.h; sourceTree = "<group>"; };
+		B301DD071D43BB87001C307C /* WriteCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteCommentTableViewCell.m; sourceTree = "<group>"; };
 		B31C92481D41BB1A004F81F0 /* QuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionTableViewCell.h; sourceTree = "<group>"; };
 		B31C92491D41BB1A004F81F0 /* QuestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionTableViewCell.m; sourceTree = "<group>"; };
 		B31C924B1D41D87A004F81F0 /* QuestionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionDetailViewController.h; sourceTree = "<group>"; };
@@ -127,6 +130,8 @@
 				B31C92491D41BB1A004F81F0 /* QuestionTableViewCell.m */,
 				B3F342951D431C220076C37E /* CommentTableViewCell.h */,
 				B3F342961D431C220076C37E /* CommentTableViewCell.m */,
+				B301DD061D43BB87001C307C /* WriteCommentTableViewCell.h */,
+				B301DD071D43BB87001C307C /* WriteCommentTableViewCell.m */,
 				B31C924B1D41D87A004F81F0 /* QuestionDetailViewController.h */,
 				B31C924C1D41D87A004F81F0 /* QuestionDetailViewController.m */,
 				B31C924E1D41D977004F81F0 /* Question.h */,
@@ -309,6 +314,7 @@
 				B31C92501D41D977004F81F0 /* Question.m in Sources */,
 				B333ABA51D3E917B00FDCCA4 /* AppDelegate.m in Sources */,
 				B333ABA21D3E917B00FDCCA4 /* main.m in Sources */,
+				B301DD081D43BB87001C307C /* WriteCommentTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

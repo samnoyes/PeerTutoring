@@ -108,7 +108,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="224" id="Wqe-Ih-1wR"/>
                                 </constraints>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -146,6 +146,49 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="commentTextView" destination="2ve-pZ-mLD" id="0u5-8i-onh"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="writeCommentCell" rowHeight="135" id="SsN-1x-MiN" customClass="WriteCommentTableViewCell">
+                                        <rect key="frame" x="0.0" y="142" width="537" height="135"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SsN-1x-MiN" id="1ZU-gy-TFL">
+                                            <rect key="frame" x="0.0" y="0.0" width="537" height="134.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Dui-RK-7FK">
+                                                    <rect key="frame" x="8" y="32" width="521" height="66.5"/>
+                                                    <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Write Comment:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="swn-zl-b81">
+                                                    <rect key="frame" x="8" y="8" width="125" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNR-Lf-h6a">
+                                                    <rect key="frame" x="480" y="99" width="49" height="27"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <state key="normal" title="Submit"/>
+                                                    <connections>
+                                                        <action selector="submitPressed:" destination="SsN-1x-MiN" eventType="touchUpInside" id="z1F-tZ-93f"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="leadingMargin" secondItem="swn-zl-b81" secondAttribute="leading" id="Lc9-cc-JyM"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="Dui-RK-7FK" secondAttribute="leading" id="YNx-xa-LJe"/>
+                                                <constraint firstItem="Dui-RK-7FK" firstAttribute="top" secondItem="swn-zl-b81" secondAttribute="bottom" constant="3" id="djc-w1-SbD"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="cNR-Lf-h6a" secondAttribute="bottom" constant="0.5" id="e14-TR-Uo0"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Dui-RK-7FK" secondAttribute="trailing" id="gun-Zj-Djs"/>
+                                                <constraint firstItem="cNR-Lf-h6a" firstAttribute="top" secondItem="Dui-RK-7FK" secondAttribute="bottom" constant="0.5" id="res-6q-g6s"/>
+                                                <constraint firstAttribute="topMargin" secondItem="swn-zl-b81" secondAttribute="top" id="uqC-hk-SeG"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="cNR-Lf-h6a" secondAttribute="trailing" id="wUj-ET-w2r"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="commentTextView" destination="Dui-RK-7FK" id="xHe-dj-CVU"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
