@@ -22,6 +22,10 @@
 }
 
 - (IBAction)submitPressed:(id)sender {
+    Comment *c = [[Comment alloc] initNewCommentWithText: self.commentTextView postID: self.qdvc.question.ID author: [GlobalVals sharedGlobalVals].fullName];
+    [HTTPManager postComment: c completion: ^(BOOL success) {
+        [qdvc performSelectorOnMainThread: @selector(updateView)];
+    }];
 }
 
 @end

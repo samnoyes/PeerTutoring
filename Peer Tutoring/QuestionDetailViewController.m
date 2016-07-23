@@ -40,6 +40,7 @@
     if (indexPath.row == [self.question.comments count]) {
         WriteCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"writeCommentCell"];
         [cell.commentTextView setUserInteractionEnabled:YES];
+        cell.qdvc = self;
         return cell;
     }
     else {
@@ -47,6 +48,10 @@
         [cell.commentTextView setText:[NSString stringWithFormat:@"%@: %@", [self.question.comments objectAtIndex:indexPath.row].author, [self.question.comments objectAtIndex:indexPath.row].commentText]];
         return cell;
     }
+}
+
+- (void) updateView {
+    [self.tableView reloadData];
 }
 
 /*

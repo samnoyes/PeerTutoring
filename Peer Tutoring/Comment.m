@@ -23,6 +23,17 @@
     return self;
 }
 
+- (id) initNewCommentWithText: (NSString *) t postID: (NSInteger) ID author: (NSString *) author {
+    self = [super init];
+    if (self) {
+        self.commentText = t;
+        self.author = author;
+        self.postID = ID;
+        self.creationDate = [NSDate date];
+    }
+    return self;
+}
+
 - (NSString *) description {
     return self.commentText;
 }
