@@ -17,4 +17,5 @@
 @property (nonatomic) NSInteger ID;
 @property (strong, nonatomic) NSArray<Comment *> *comments;
 - (id) initWithDictionary: (NSDictionary *) dict;
+- (void) reloadCommentsWithCompletion: (void (^)()) completion;
 @end

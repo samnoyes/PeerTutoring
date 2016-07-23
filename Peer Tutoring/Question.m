@@ -27,4 +27,11 @@
     return self;
 }
 
+- (void) reloadCommentsWithCompletion: (void (^)()) completion {
+    [HTTPManager getCommentsWithPostID: self.ID completion: ^(NSArray<Comment *> *result){
+            self.comments = result;
+            completion();
+        }];
+}
+
 @end

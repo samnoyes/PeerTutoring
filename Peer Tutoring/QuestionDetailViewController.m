@@ -51,7 +51,9 @@
 }
 
 - (void) updateView {
-    [self.tableView reloadData];
+    [self.question reloadCommentsWithCompletion: ^{
+        [self.tableView performSelectorOnMainThread: @selector(reloadData)];
+    }];
 }
 
 /*
