@@ -28,16 +28,12 @@
 }
 
 - (void) setQuestionText:(NSString *) t {
-    if ([t length]>50) {
-        [self.questionTextView setText:[NSString stringWithFormat:@"%@...", [t substringToIndex:50]]];
+    if ([t length]>65) {
+        [self.questionTextView setText:[NSString stringWithFormat:@"%@...", [t substringToIndex:65]]];
     }
     else {
         [self.questionTextView setText:t];
     }
-    //CGRect frame = self.questionTextView.frame;
-    //frame.size.height = self.questionTextView.contentSize.height;
-    //self.questionTextView.frame = frame;
-    //[self.authorLabel setFrame:CGRectMake(self.authorLabel.frame.origin.x, self.questionTextView.frame.origin.y+self.questionTextView.frame.size.height, self.authorLabel.frame.size.width, self.authorLabel.frame.size.height)];
 }
 
 - (void) setSubjectText: (NSString *) t {

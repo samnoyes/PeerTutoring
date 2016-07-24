@@ -14,7 +14,9 @@
 @interface AskQuestionViewController ()
 @property (weak, nonatomic) IBOutlet UIPickerView *subjectPicker;
 @property (weak, nonatomic) IBOutlet UITextView *questionTextView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 @property (strong, nonatomic) NSArray *subjects;
+@property (nonatomic) BOOL editing;
 @end
 
 @implementation AskQuestionViewController
@@ -25,6 +27,8 @@
     self.subjects = [[NSArray alloc] initWithObjects:@"English", @"Math", @"Biology", @"Chemistry", @"Physics", @"Computer Science", @"History", @"Religion", nil];
     self.subjectPicker.delegate = self;
     self.subjectPicker.dataSource = self;
+    self.editing = NO;
+    self.questionTextView.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,18 +62,30 @@
 
 - (IBAction)submitPressed:(id)sender {
     NSInteger row;
-    
-    row = [self.subjectPicker selectedRowInComponent:0];
-    NSString *sel = [self.subjects objectAtIndex:row];
-    Question *q = [[Question alloc] initNewQuestionWithText:self.questionTextView.text author:[GlobalVals sharedGlobalVals].fullName subject:sel];
-    [HTTPManager postQuestion:q completion:^(BOOL success){
-        NSNumber *n = [NSNumber numberWithBool:YES];
-        [self.navigationController performSelectorOnMainThread:@selector(popViewControllerAnimated:) withObject:n waitUntilDone:NO];
-        [self.tvc performSelectorOnMainThread:@selector(updateView) withObject:nil waitUntilDone:NO];
-    }];
+    if (!self.editing) {
+        row = [self.subjectPicker selectedRowInComponent:0];
+        NSString *sel = [self.subjects objectAtIndex:row];
+        Question *q = [[Question alloc] initNewQuestionWithText:self.questionTextView.text author:[GlobalVals sharedGlobalVals].fullName subject:sel];
+        [HTTPManager postQuestion:q completion:^(BOOL success){
+            NSNumber *n = [NSNumber numberWithBool:YES];
+            [self.navigationController performSelectorOnMainThread:@selector(popViewControllerAnimated:) withObject:n waitUntilDone:NO];
+            [self.tvc performSelectorOnMainThread:@selector(updateView) withObject:nil waitUntilDone:NO];
+        }];
+    }
+    else {
+        [self.questionTextView resignFirstResponder];
+    }
 }
 
+- (void) textViewDidBeginEditing:(UITextView *)textView {
+    [self.submitButton setTitle:@"Done"];
+    self.editing = YES;
+}
 
+- (void) textViewDidEndEditing:(UITextView *)textView {
+    [self.submitButton setTitle:@"Submit"];
+    self.editing = NO;
+}
 
 // tell the picker the width of each row for a given component
 /*- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {

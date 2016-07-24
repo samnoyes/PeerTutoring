@@ -10,6 +10,9 @@
 #import "CommentTableViewCell.h"
 #import "WriteCommentTableViewCell.h"
 
+#define kOFFSET_FOR_KEYBOARD 200
+#define kOFFSET_FOR_KEYBOARD_IPAD 300
+
 @interface QuestionDetailViewController ()
 
 @end
@@ -53,6 +56,29 @@
     [self.question reloadCommentsWithCompletion: ^{
         [self.tableView performSelectorOnMainThread: @selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
+}
+
+- (void) moveViewUp {
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3]; // if you want to slide up the view
+    
+    CGRect rect = self.view.frame;
+        // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
+        // 2. increase the size of the view so that the area behind the keyboard is covered up.
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        rect.origin.y -= kOFFSET_FOR_KEYBOARD_IPAD;
+        rect.size.height += kOFFSET_FOR_KEYBOARD_IPAD;
+    } else {
+        rect.origin.y -= kOFFSET_FOR_KEYBOARD;
+        rect.size.height += kOFFSET_FOR_KEYBOARD;
+    }
+    self.view.frame = rect;
+    
+    [UIView commitAnimations];
+}
+
+- (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
 }
 
 /*

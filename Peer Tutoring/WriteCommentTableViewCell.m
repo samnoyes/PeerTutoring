@@ -15,6 +15,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.commentTextView.delegate = self;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -31,6 +32,10 @@
         [self.commentTextView performSelectorOnMainThread:@selector(setText:) withObject:@"" waitUntilDone:NO];
         NSLog(success ? @"Success!" : @"Failed.");
     }];
+}
+
+- (void) textViewDidBeginEditing:(UITextView *)textView {
+    [self.qdvc moveViewUp];
 }
 
 @end

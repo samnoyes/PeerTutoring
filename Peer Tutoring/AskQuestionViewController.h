@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "TableViewController.h"
 
-@interface AskQuestionViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface AskQuestionViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate>
 @property (strong, nonatomic) UITableViewController *tvc;
 @end

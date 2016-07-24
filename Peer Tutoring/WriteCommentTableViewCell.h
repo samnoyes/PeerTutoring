@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "QuestionDetailViewController.h"
 
-@interface WriteCommentTableViewCell : UITableViewCell
+@interface WriteCommentTableViewCell : UITableViewCell <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *commentTextView;
 @property (strong, nonatomic) QuestionDetailViewController *qdvc;
 @end
