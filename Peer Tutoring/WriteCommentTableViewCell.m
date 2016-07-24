@@ -34,8 +34,4 @@
     }];
 }
 
-- (void) textViewDidBeginEditing:(UITextView *)textView {
-    [self.qdvc moveViewUp];
-}
-
 @end
