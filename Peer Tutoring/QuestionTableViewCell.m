@@ -10,7 +10,6 @@
 
 @interface QuestionTableViewCell ()
 @property (weak, nonatomic) IBOutlet UILabel *subjectLabel;
-@property (weak, nonatomic) IBOutlet UITextView *questionTextView;
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
 
 @end
@@ -29,11 +28,16 @@
 }
 
 - (void) setQuestionText:(NSString *) t {
-    [self.questionTextView setText:t];
-    CGRect frame = self.questionTextView.frame;
-    frame.size.height = self.questionTextView.contentSize.height;
-    self.questionTextView.frame = frame;
-    [self.authorLabel setFrame:CGRectMake(self.authorLabel.frame.origin.x, self.questionTextView.frame.origin.y+self.questionTextView.frame.size.height, self.authorLabel.frame.size.width, self.authorLabel.frame.size.height)];
+    if ([t length]>50) {
+        [self.questionTextView setText:[NSString stringWithFormat:@"%@...", [t substringToIndex:50]]];
+    }
+    else {
+        [self.questionTextView setText:t];
+    }
+    //CGRect frame = self.questionTextView.frame;
+    //frame.size.height = self.questionTextView.contentSize.height;
+    //self.questionTextView.frame = frame;
+    //[self.authorLabel setFrame:CGRectMake(self.authorLabel.frame.origin.x, self.questionTextView.frame.origin.y+self.questionTextView.frame.size.height, self.authorLabel.frame.size.width, self.authorLabel.frame.size.height)];
 }
 
 - (void) setSubjectText: (NSString *) t {

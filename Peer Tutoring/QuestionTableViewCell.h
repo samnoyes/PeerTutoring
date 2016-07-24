@@ -12,4 +12,5 @@
 - (void) setQuestionText:(NSString *) t;
 - (void) setSubjectText: (NSString *) t;
 - (void) setAuthorText: (NSString *) t;
+@property (weak, nonatomic) IBOutlet UITextView *questionTextView;
 @end
