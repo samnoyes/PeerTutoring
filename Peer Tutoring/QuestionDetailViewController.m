@@ -56,6 +56,17 @@
     return [self.question.comments count]+1;
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    CommentTableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSMutableArray *arr = [self.question.comments mutableCopy];
+        [arr removeObjectAtIndex:indexPath.row];
+        self.question.comments = [arr copy];
+        [tableView reloadData]; // tell table to refresh now
+        [HTTPManager deleteComment:cell.comment completion:nil];
+    }
+}
+
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == [self.question.comments count]) {
         WriteCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"writeCommentCell"];
@@ -66,7 +77,24 @@
     else {
         CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentCell"];
         [cell.commentTextView setText:[NSString stringWithFormat:@"%@: %@", [self.question.comments objectAtIndex:indexPath.row].author, [self.question.comments objectAtIndex:indexPath.row].commentText]];
+        cell.comment = [self.question.comments objectAtIndex:indexPath.row];
         return cell;
+    }
+}
+
+- (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == [self.question.comments count]) {
+        return UITableViewCellEditingStyleNone;
+    }
+    else {
+        CommentTableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+        if ([cell.comment.author isEqualToString: [GlobalVals sharedGlobalVals].fullname]) {
+            return UITableViewCellEditingStyleDelete;
+        }
+        else {
+            return UITableViewCellEditingStyleNone;     
+        }
     }
 }
 

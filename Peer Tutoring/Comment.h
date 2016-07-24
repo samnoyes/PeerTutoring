@@ -13,6 +13,7 @@
 @property (strong, nonatomic) NSString *author;
 @property (strong, nonatomic) NSDate *creationDate;
 @property (nonatomic) NSInteger postID;
+@property (nonatomic) NSInteger commentID;
 - (id) initWithDictionary: (NSDictionary *) dict;
 - (id) initNewCommentWithText: (NSString *) t postID: (NSInteger) ID author: (NSString *) author;
 @end

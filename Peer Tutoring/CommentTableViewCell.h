@@ -10,5 +10,6 @@
 
 @interface CommentTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UITextView *commentTextView;
+@property (strong, nonatomic) Comment *comment;
 
 @end

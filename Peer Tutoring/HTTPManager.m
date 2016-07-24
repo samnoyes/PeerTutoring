@@ -173,4 +173,26 @@
     [dataTask resume];
 }
 
++ (void) deleteComment: (Comment *) c completion: (void (^)(BOOL success)) completion {
+    NSURL* url = [NSURL URLWithString:[SERVER_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/comment/%ld",c.commentID]]];
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
+    request.HTTPMethod = @"DELETE";
+    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    NSURLSessionConfiguration* config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession* session = [NSURLSession sessionWithConfiguration:config];
+    NSURLSessionDataTask* dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSString *str = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+        if (!e && [str isEqualToString: @"true"]) {
+            completion(YES);
+        }
+        else {
+            NSLog(@"Error: %@\nResponse String: %@", e, str);
+            completion(NO);
+        }
+    }];
+    
+    [dataTask resume];
+}
+
 @end

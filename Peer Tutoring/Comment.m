@@ -17,6 +17,7 @@
         self.commentText = [dict objectForKey: @"Text"];
         self.author = [dict objectForKey: @"Author"];
         self.postID = [[dict objectForKey: @"postID"] intValue];
+        self.commentID = [[dict objectForKey: @"ID"] intValue];
         NSTimeInterval seconds = [[dict objectForKey: @"Time"] doubleValue];
         self.creationDate = [[NSDate alloc] initWithTimeIntervalSince1970:seconds];
     }
