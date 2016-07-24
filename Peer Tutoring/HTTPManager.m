@@ -14,7 +14,7 @@
 
 + (void) getCommentsWithPostID: (NSInteger) ID completion: (void (^)(NSArray<Comment *> *result)) completion {
     
-    NSURL* url = [NSURL URLWithString:[SERVER_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/comments/%ld", ID]]];
+    NSURL* url = [NSURL URLWithString:[SERVER_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/comments/%ld", (long)ID]]];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"GET";
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -90,7 +90,7 @@
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     
     [request setHTTPMethod:@"POST"];
-    NSDictionary *mapData = [[NSDictionary alloc] initWithObjectsAndKeys:  c.commentText, @"text", c.author, @"author", [NSString stringWithFormat:@"%ld", c.postID], @"postID", nil];
+    NSDictionary *mapData = [[NSDictionary alloc] initWithObjectsAndKeys:  c.commentText, @"text", c.author, @"author", [NSString stringWithFormat:@"%ld", (long)c.postID], @"postID", nil];
 
     NSData *postData = [NSJSONSerialization dataWithJSONObject:mapData
                                     options:NSJSONWritingPrettyPrinted
@@ -152,7 +152,7 @@
 }
 
 + (void) deleteQuestion: (Question *) q completion: (void (^)(BOOL success)) completion {
-    NSURL* url = [NSURL URLWithString:[SERVER_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/question/%ld",q.ID]]];
+    NSURL* url = [NSURL URLWithString:[SERVER_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/question/%ld",(long)q.ID]]];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"DELETE";
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -161,12 +161,14 @@
     NSURLSession* session = [NSURLSession sessionWithConfiguration:config];
     NSURLSessionDataTask* dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSString *str = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-        if (!e && [str isEqualToString: @"true"]) {
-            completion(YES);
+        if (!error && [str isEqualToString: @"true"]) {
+            if (completion)
+                completion(YES);
         }
         else {
-            NSLog(@"Error: %@\nResponse String: %@", e, str);
-            completion(NO);
+            NSLog(@"Error: %@\nResponse String: %@", error, str);
+            if (completion)
+                completion(NO);
         }
     }];
     
@@ -174,7 +176,7 @@
 }
 
 + (void) deleteComment: (Comment *) c completion: (void (^)(BOOL success)) completion {
-    NSURL* url = [NSURL URLWithString:[SERVER_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/comment/%ld",c.commentID]]];
+    NSURL* url = [NSURL URLWithString:[SERVER_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/comment/%ld",(long)c.commentID]]];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"DELETE";
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -183,12 +185,14 @@
     NSURLSession* session = [NSURLSession sessionWithConfiguration:config];
     NSURLSessionDataTask* dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSString *str = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-        if (!e && [str isEqualToString: @"true"]) {
-            completion(YES);
+        if (!error && [str isEqualToString: @"true"]) {
+            if (completion)
+                completion(YES);
         }
         else {
-            NSLog(@"Error: %@\nResponse String: %@", e, str);
-            completion(NO);
+            NSLog(@"Error: %@\nResponse String: %@", error, str);
+            if (completion)
+                completion(NO);
         }
     }];
     

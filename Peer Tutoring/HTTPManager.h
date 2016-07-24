@@ -15,5 +15,6 @@
 + (void) getQuestionsWithCompletion: (void (^)(NSArray<Question *> *result)) completion;
 + (void) postComment: (Comment *) c completion: (void (^)(BOOL success)) completion;
 + (void) postQuestion: (Question *) q completion: (void (^)(BOOL success)) completion;
-+ (void) deleteQuestion: (Question *) q completion: (void (^)(BOOL success)) completion
++ (void) deleteQuestion: (Question *) q completion: (void (^)(BOOL success)) completion;
++ (void) deleteComment: (Comment *) c completion: (void (^)(BOOL success)) completion;
 @end

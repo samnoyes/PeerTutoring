@@ -9,6 +9,8 @@
 #import "QuestionDetailViewController.h"
 #import "CommentTableViewCell.h"
 #import "WriteCommentTableViewCell.h"
+#import "GlobalVals.h"
+#import "HTTPManager.h"
 
 #define kOFFSET_FOR_KEYBOARD 200
 #define kOFFSET_FOR_KEYBOARD_IPAD 300
@@ -57,7 +59,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    CommentTableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+    CommentTableViewCell *cell = (CommentTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSMutableArray *arr = [self.question.comments mutableCopy];
         [arr removeObjectAtIndex:indexPath.row];
@@ -88,8 +90,8 @@
         return UITableViewCellEditingStyleNone;
     }
     else {
-        CommentTableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-        if ([cell.comment.author isEqualToString: [GlobalVals sharedGlobalVals].fullname]) {
+        CommentTableViewCell *cell = (CommentTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+        if ([cell.comment.author isEqualToString: [GlobalVals sharedGlobalVals].fullName]) {
             return UITableViewCellEditingStyleDelete;
         }
         else {
