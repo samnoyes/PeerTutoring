@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Question.h"
 
 @interface QuestionTableViewCell : UITableViewCell
 - (void) setQuestionText:(NSString *) t;
 - (void) setSubjectText: (NSString *) t;
 - (void) setAuthorText: (NSString *) t;
 @property (weak, nonatomic) IBOutlet UITextView *questionTextView;
+@property (strong, nonatomic) Question *question;
 @end

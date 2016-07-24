@@ -11,6 +11,7 @@
 #import "HTTPManager.h"
 #import "QuestionDetailViewController.h"
 #import "AskQuestionViewController.h"
+#import "GlobalVals.h"
 
 
 @interface ViewController ()
@@ -44,6 +45,7 @@
     [cell setAuthorText:[self.questions objectAtIndex:indexPath.row].author];
     [cell setQuestionText:[self.questions objectAtIndex:indexPath.row].questionText];
     [cell setSubjectText:[self.questions objectAtIndex:indexPath.row].subject];
+    cell.question = [self.questions objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -65,6 +67,28 @@
         self.questions = [[self.questions reverseObjectEnumerator] allObjects];
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
+}
+
+- (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    QuestionTableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+    if ([cell.question.author isEqualToString: [GlobalVals sharedGlobalVals].fullname]) {
+        return UITableViewCellEditingStyleDelete;
+    }
+    else {
+        return UITableViewCellEditingStyleNone;     
+    }
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    QuestionTableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSMutableArray *arr = [self.questions mutableCopy];
+        [arr removeObjectAtIndex:indexPath.row];
+        self.questions = [arr copy];
+        [tableView reloadData]; // tell table to refresh now
+        [HTTPManager deleteQuestion:cell.question completion:nil];
+    }
 }
 
 @end
