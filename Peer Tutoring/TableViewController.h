@@ -10,6 +10,6 @@
 
 @interface ViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
-
+-(void) updateView;
 @end
 

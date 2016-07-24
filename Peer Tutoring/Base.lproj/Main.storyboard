@@ -44,7 +44,7 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ubi-xg-sSe">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ubi-xg-sSe">
                                             <rect key="frame" x="106" y="35" width="414" height="194"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <accessibility key="accessibilityConfiguration">
@@ -84,11 +84,82 @@
                             <outlet property="delegate" destination="3da-Pk-Qyz" id="Ygu-wg-qva"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="CYL-qv-xsF"/>
+                    <navigationItem key="navigationItem" id="CYL-qv-xsF">
+                        <barButtonItem key="rightBarButtonItem" title="Ask a question" id="jmR-f3-lEF">
+                            <connections>
+                                <segue destination="GQA-B5-OaW" kind="show" id="fIG-oN-Ri4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="85d-Fx-QJ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="380" y="994"/>
+        </scene>
+        <!--Ask Question View Controller-->
+        <scene sceneID="Bgp-tv-mWe">
+            <objects>
+                <viewController id="GQA-B5-OaW" customClass="AskQuestionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EiZ-W2-ywA"/>
+                        <viewControllerLayoutGuide type="bottom" id="l6w-be-UUj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Js2-NJ-qnd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ecX-6b-ERm">
+                                <rect key="frame" x="0.0" y="384" width="600" height="216"/>
+                            </pickerView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kvq-O7-r66">
+                                <rect key="frame" x="20" y="101" width="560" height="234"/>
+                                <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your question:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tkx-DT-gtd">
+                                <rect key="frame" x="20" y="72" width="154" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose your subject:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jab-U3-qyF">
+                                <rect key="frame" x="20" y="350" width="163" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="jab-U3-qyF" secondAttribute="leading" id="Gcc-id-KTA"/>
+                            <constraint firstItem="kvq-O7-r66" firstAttribute="top" secondItem="Tkx-DT-gtd" secondAttribute="bottom" constant="8" id="I3H-9N-bt7"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kvq-O7-r66" secondAttribute="trailing" id="UTk-qv-F9S"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="Tkx-DT-gtd" secondAttribute="leading" id="Uer-Ko-eEv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ecX-6b-ERm" secondAttribute="trailing" constant="-20" id="VyC-P1-Ehe"/>
+                            <constraint firstItem="l6w-be-UUj" firstAttribute="top" secondItem="ecX-6b-ERm" secondAttribute="bottom" id="XP3-qw-CJx"/>
+                            <constraint firstItem="ecX-6b-ERm" firstAttribute="top" secondItem="jab-U3-qyF" secondAttribute="bottom" constant="13" id="XmO-q5-NId"/>
+                            <constraint firstItem="ecX-6b-ERm" firstAttribute="leading" secondItem="Js2-NJ-qnd" secondAttribute="leadingMargin" constant="-20" id="feR-YC-abJ"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="kvq-O7-r66" secondAttribute="leading" id="lAg-HN-6aw"/>
+                            <constraint firstItem="Tkx-DT-gtd" firstAttribute="top" secondItem="EiZ-W2-ywA" secondAttribute="bottom" constant="8" id="m64-bF-VXq"/>
+                            <constraint firstItem="jab-U3-qyF" firstAttribute="top" secondItem="kvq-O7-r66" secondAttribute="bottom" constant="15" id="tmp-nU-oxt"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="742-cH-yP0">
+                        <barButtonItem key="rightBarButtonItem" title="Submit" id="RMu-7F-lcm">
+                            <connections>
+                                <action selector="submitPressed:" destination="GQA-B5-OaW" id="1Hw-ao-kfu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="questionTextView" destination="kvq-O7-r66" id="xko-ld-rXf"/>
+                        <outlet property="subjectPicker" destination="ecX-6b-ERm" id="tgz-Jn-mV9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zzh-0d-KPg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1095" y="289"/>
         </scene>
         <!--Question Detail View Controller-->
         <scene sceneID="7Al-lP-g20">
@@ -102,7 +173,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Gst-i0-FRm">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Gst-i0-FRm">
                                 <rect key="frame" x="52" y="74" width="496" height="210"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -129,7 +200,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="537" height="113.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2ve-pZ-mLD">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2ve-pZ-mLD">
                                                     <rect key="frame" x="8" y="8" width="521" height="97.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <string key="text">Sam Noyes: Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</string>

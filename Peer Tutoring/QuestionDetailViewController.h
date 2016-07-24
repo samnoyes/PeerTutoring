@@ -15,5 +15,5 @@
 @property (weak, nonatomic) IBOutlet UITextView *questionTextView;
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
 @property (strong, nonatomic) Question *question;
-- (void) reloadView;
+- (void) updateView;
 @end

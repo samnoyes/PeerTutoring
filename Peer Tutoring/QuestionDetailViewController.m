@@ -22,7 +22,6 @@
     [self.subjectLabel setText:self.question.subject];
     [self.questionTextView setText:self.question.questionText];
     [self.authorLabel setText:self.question.author];
-    NSLog(@"%@", self.question.comments);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 }
@@ -52,7 +51,7 @@
 
 - (void) updateView {
     [self.question reloadCommentsWithCompletion: ^{
-        [self.tableView performSelectorOnMainThread: @selector(reloadData)];
+        [self.tableView performSelectorOnMainThread: @selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
 }
 

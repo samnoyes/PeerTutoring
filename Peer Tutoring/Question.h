@@ -18,4 +18,5 @@
 @property (strong, nonatomic) NSArray<Comment *> *comments;
 - (id) initWithDictionary: (NSDictionary *) dict;
 - (void) reloadCommentsWithCompletion: (void (^)()) completion;
+- (id) initNewQuestionWithText: (NSString *) t author: (NSString *) a subject: (NSString *) s;
 @end

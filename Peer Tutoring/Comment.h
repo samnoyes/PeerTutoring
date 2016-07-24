@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Question.h"
 
 @interface Comment : NSObject
 @property (strong, nonatomic) NSString *commentText;
@@ -15,5 +14,5 @@
 @property (strong, nonatomic) NSDate *creationDate;
 @property (nonatomic) NSInteger postID;
 - (id) initWithDictionary: (NSDictionary *) dict;
-- (id) initWithText: (NSString *) t postID: (NSInteger) ID author: (NSString *) author;
+- (id) initNewCommentWithText: (NSString *) t postID: (NSInteger) ID author: (NSString *) author;
 @end

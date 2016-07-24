@@ -9,6 +9,7 @@
     dispatch_once(&onceToken, ^{
         sharedInstance = [[GlobalVals alloc] init];
         // Do any other initialisation stuff here
+        sharedInstance.fullName = @"Sam Noyes";
     });
     return sharedInstance;
 }

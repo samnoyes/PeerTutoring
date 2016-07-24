@@ -27,6 +27,16 @@
     return self;
 }
 
+- (id) initNewQuestionWithText: (NSString *) t author: (NSString *) a subject: (NSString *) s {
+    self = [super init];
+    if (self) {
+        self.questionText = t;
+        self.author = a;
+        self.subject = s;
+    }
+    return self;
+}
+
 - (void) reloadCommentsWithCompletion: (void (^)()) completion {
     [HTTPManager getCommentsWithPostID: self.ID completion: ^(NSArray<Comment *> *result){
             self.comments = result;

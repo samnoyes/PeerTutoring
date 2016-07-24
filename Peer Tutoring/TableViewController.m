@@ -10,6 +10,7 @@
 #import "QuestionTableViewCell.h"
 #import "HTTPManager.h"
 #import "QuestionDetailViewController.h"
+#import "AskQuestionViewController.h"
 
 
 @interface ViewController ()
@@ -21,11 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
-    [HTTPManager getQuestionsWithCompletion: ^(NSArray<Question *> *response){
-        self.questions = response;
-        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-    }];
+    [self updateView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,7 +31,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"Count = %lu", (unsigned long)[self.questions count]);
     return [self.questions count];
 }
 
@@ -54,6 +50,20 @@
     QuestionDetailViewController *vc = (QuestionDetailViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"questionDetail"];
     vc.question = [self.questions objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue destinationViewController] isKindOfClass:[AskQuestionViewController class]]) {
+        ((AskQuestionViewController *)[segue destinationViewController]).tvc = self;
+    }
+}
+
+- (void) updateView {
+    [HTTPManager getQuestionsWithCompletion: ^(NSArray<Question *> *response){
+        self.questions = response;
+        self.questions = [[self.questions reverseObjectEnumerator] allObjects];
+        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    }];
 }
 
 @end

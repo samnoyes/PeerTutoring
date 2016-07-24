@@ -7,6 +7,8 @@
 //
 
 #import "WriteCommentTableViewCell.h"
+#import "GlobalVals.h"
+#import "HTTPManager.h"
 
 @implementation WriteCommentTableViewCell
 
@@ -22,9 +24,12 @@
 }
 
 - (IBAction)submitPressed:(id)sender {
-    Comment *c = [[Comment alloc] initNewCommentWithText: self.commentTextView postID: self.qdvc.question.ID author: [GlobalVals sharedGlobalVals].fullName];
+    [GlobalVals sharedGlobalVals].fullName = @"Sam Noyes";
+    Comment *c = [[Comment alloc] initNewCommentWithText: self.commentTextView.text postID: self.qdvc.question.ID author: [GlobalVals sharedGlobalVals].fullName];
     [HTTPManager postComment: c completion: ^(BOOL success) {
-        [qdvc performSelectorOnMainThread: @selector(updateView)];
+        [self.qdvc performSelectorOnMainThread: @selector(updateView) withObject:nil waitUntilDone:NO];
+        [self.commentTextView performSelectorOnMainThread:@selector(setText:) withObject:@"" waitUntilDone:NO];
+        NSLog(success ? @"Success!" : @"Failed.");
     }];
 }
 

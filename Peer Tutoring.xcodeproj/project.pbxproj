@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B301DD081D43BB87001C307C /* WriteCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B301DD071D43BB87001C307C /* WriteCommentTableViewCell.m */; };
+		B301DD0B1D443D60001C307C /* GlobalVals.m in Sources */ = {isa = PBXBuildFile; fileRef = B301DD0A1D443D60001C307C /* GlobalVals.m */; };
+		B301DD0E1D447483001C307C /* AskQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B301DD0D1D447483001C307C /* AskQuestionViewController.m */; };
 		B31C924A1D41BB1A004F81F0 /* QuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B31C92491D41BB1A004F81F0 /* QuestionTableViewCell.m */; };
 		B31C924D1D41D87A004F81F0 /* QuestionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B31C924C1D41D87A004F81F0 /* QuestionDetailViewController.m */; };
 		B31C92501D41D977004F81F0 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = B31C924F1D41D977004F81F0 /* Question.m */; };
@@ -44,6 +46,10 @@
 /* Begin PBXFileReference section */
 		B301DD061D43BB87001C307C /* WriteCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteCommentTableViewCell.h; sourceTree = "<group>"; };
 		B301DD071D43BB87001C307C /* WriteCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteCommentTableViewCell.m; sourceTree = "<group>"; };
+		B301DD091D443D60001C307C /* GlobalVals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalVals.h; sourceTree = "<group>"; };
+		B301DD0A1D443D60001C307C /* GlobalVals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalVals.m; sourceTree = "<group>"; };
+		B301DD0C1D447483001C307C /* AskQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskQuestionViewController.h; sourceTree = "<group>"; };
+		B301DD0D1D447483001C307C /* AskQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskQuestionViewController.m; sourceTree = "<group>"; };
 		B31C92481D41BB1A004F81F0 /* QuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionTableViewCell.h; sourceTree = "<group>"; };
 		B31C92491D41BB1A004F81F0 /* QuestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionTableViewCell.m; sourceTree = "<group>"; };
 		B31C924B1D41D87A004F81F0 /* QuestionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionDetailViewController.h; sourceTree = "<group>"; };
@@ -99,6 +105,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B301DD0F1D4474A1001C307C /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B31C924B1D41D87A004F81F0 /* QuestionDetailViewController.h */,
+				B31C924C1D41D87A004F81F0 /* QuestionDetailViewController.m */,
+				B301DD0C1D447483001C307C /* AskQuestionViewController.h */,
+				B301DD0D1D447483001C307C /* AskQuestionViewController.m */,
+				B333ABA61D3E917B00FDCCA4 /* TableViewController.h */,
+				B333ABA71D3E917B00FDCCA4 /* TableViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		B301DD101D4474DD001C307C /* Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B31C92481D41BB1A004F81F0 /* QuestionTableViewCell.h */,
+				B31C92491D41BB1A004F81F0 /* QuestionTableViewCell.m */,
+				B3F342951D431C220076C37E /* CommentTableViewCell.h */,
+				B3F342961D431C220076C37E /* CommentTableViewCell.m */,
+				B301DD061D43BB87001C307C /* WriteCommentTableViewCell.h */,
+				B301DD071D43BB87001C307C /* WriteCommentTableViewCell.m */,
+			);
+			name = "Table View Cells";
+			sourceTree = "<group>";
+		};
+		B301DD111D4474F1001C307C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B31C92541D42658F004F81F0 /* HTTPManager.h */,
+				B31C92551D42658F004F81F0 /* HTTPManager.m */,
+				B301DD091D443D60001C307C /* GlobalVals.h */,
+				B301DD0A1D443D60001C307C /* GlobalVals.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		B333AB941D3E917A00FDCCA4 = {
 			isa = PBXGroup;
 			children = (
@@ -122,24 +165,15 @@
 		B333AB9F1D3E917B00FDCCA4 /* Peer Tutoring */ = {
 			isa = PBXGroup;
 			children = (
+				B301DD111D4474F1001C307C /* Utilities */,
+				B301DD101D4474DD001C307C /* Table View Cells */,
+				B301DD0F1D4474A1001C307C /* View Controllers */,
 				B333ABA31D3E917B00FDCCA4 /* AppDelegate.h */,
 				B333ABA41D3E917B00FDCCA4 /* AppDelegate.m */,
-				B333ABA61D3E917B00FDCCA4 /* TableViewController.h */,
-				B333ABA71D3E917B00FDCCA4 /* TableViewController.m */,
-				B31C92481D41BB1A004F81F0 /* QuestionTableViewCell.h */,
-				B31C92491D41BB1A004F81F0 /* QuestionTableViewCell.m */,
-				B3F342951D431C220076C37E /* CommentTableViewCell.h */,
-				B3F342961D431C220076C37E /* CommentTableViewCell.m */,
-				B301DD061D43BB87001C307C /* WriteCommentTableViewCell.h */,
-				B301DD071D43BB87001C307C /* WriteCommentTableViewCell.m */,
-				B31C924B1D41D87A004F81F0 /* QuestionDetailViewController.h */,
-				B31C924C1D41D87A004F81F0 /* QuestionDetailViewController.m */,
 				B31C924E1D41D977004F81F0 /* Question.h */,
 				B31C924F1D41D977004F81F0 /* Question.m */,
 				B31C92511D4262E5004F81F0 /* Comment.h */,
 				B31C92521D4262E5004F81F0 /* Comment.m */,
-				B31C92541D42658F004F81F0 /* HTTPManager.h */,
-				B31C92551D42658F004F81F0 /* HTTPManager.m */,
 				B333ABA91D3E917B00FDCCA4 /* Main.storyboard */,
 				B333ABAC1D3E917B00FDCCA4 /* Assets.xcassets */,
 				B333ABAE1D3E917B00FDCCA4 /* LaunchScreen.storyboard */,
@@ -309,10 +343,12 @@
 				B3F342971D431C220076C37E /* CommentTableViewCell.m in Sources */,
 				B31C924D1D41D87A004F81F0 /* QuestionDetailViewController.m in Sources */,
 				B333ABA81D3E917B00FDCCA4 /* TableViewController.m in Sources */,
+				B301DD0E1D447483001C307C /* AskQuestionViewController.m in Sources */,
 				B31C92561D42658F004F81F0 /* HTTPManager.m in Sources */,
 				B31C924A1D41BB1A004F81F0 /* QuestionTableViewCell.m in Sources */,
 				B31C92501D41D977004F81F0 /* Question.m in Sources */,
 				B333ABA51D3E917B00FDCCA4 /* AppDelegate.m in Sources */,
+				B301DD0B1D443D60001C307C /* GlobalVals.m in Sources */,
 				B333ABA21D3E917B00FDCCA4 /* main.m in Sources */,
 				B301DD081D43BB87001C307C /* WriteCommentTableViewCell.m in Sources */,
 			);

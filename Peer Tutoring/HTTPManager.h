@@ -10,8 +10,9 @@
 #import "Comment.h"
 #import "Question.h"
 
-@interface HTTPManager : NSObject
+@interface HTTPManager : NSObject <NSURLSessionDelegate>
 + (void) getCommentsWithPostID: (NSInteger) ID completion: (void (^)(NSArray<Comment *> *result)) completion;
 + (void) getQuestionsWithCompletion: (void (^)(NSArray<Question *> *result)) completion;
 + (void) postComment: (Comment *) c completion: (void (^)(BOOL success)) completion;
++ (void) postQuestion: (Question *) q completion: (void (^)(BOOL success)) completion;
 @end
