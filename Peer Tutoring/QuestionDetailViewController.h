@@ -16,5 +16,4 @@
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
 @property (strong, nonatomic) Question *question;
 - (void) updateView;
-- (void) moveViewUp;
 @end

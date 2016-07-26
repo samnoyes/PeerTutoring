@@ -36,7 +36,7 @@
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    QuestionTableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+    QuestionTableViewCell *cell = (QuestionTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
     return cell.questionTextView.contentSize.height + 100;
 }
 
@@ -82,8 +82,8 @@
 
 - (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    QuestionTableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-    if ([cell.question.author isEqualToString: [GlobalVals sharedGlobalVals].fullname]) {
+    QuestionTableViewCell *cell = (QuestionTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+    if ([cell.question.author isEqualToString: [GlobalVals sharedGlobalVals].fullName]) {
         return UITableViewCellEditingStyleDelete;
     }
     else {
@@ -92,7 +92,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    QuestionTableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+    QuestionTableViewCell *cell = (QuestionTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSMutableArray *arr = [self.questions mutableCopy];
         [arr removeObjectAtIndex:indexPath.row];

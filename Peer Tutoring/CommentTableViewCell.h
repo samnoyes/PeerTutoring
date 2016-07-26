@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Comment.h"
 
 @interface CommentTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UITextView *commentTextView;
