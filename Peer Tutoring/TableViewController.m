@@ -41,6 +41,17 @@
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == [self.questions count]) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"defaultCell"];
+        if (cell==nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"defaultCell"];
+            spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+            [spinner setCenter:CGPointMake(cell.frame.size.width/2, cell.frame.size.height/2)];
+            [cell addSubview:spinner]; // spinner is not visible until started
+            [spinner startAnimating];
+            return cell;
+        }
+    }
     QuestionTableViewCell *cell = (QuestionTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"questionCell"];
     [cell setAuthorText:[self.questions objectAtIndex:indexPath.row].author];
     [cell setQuestionText:[self.questions objectAtIndex:indexPath.row].questionText];
