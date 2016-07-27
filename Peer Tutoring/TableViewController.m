@@ -45,7 +45,7 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"defaultCell"];
         if (cell==nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"defaultCell"];
-            spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+            UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
             [spinner setCenter:CGPointMake(cell.frame.size.width/2, cell.frame.size.height/2)];
             [cell addSubview:spinner]; // spinner is not visible until started
             [spinner startAnimating];
