@@ -23,6 +23,8 @@
 		B333ABB01D3E917B00FDCCA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B333ABAE1D3E917B00FDCCA4 /* LaunchScreen.storyboard */; };
 		B333ABBB1D3E917B00FDCCA4 /* Peer_TutoringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B333ABBA1D3E917B00FDCCA4 /* Peer_TutoringTests.m */; };
 		B333ABC61D3E917B00FDCCA4 /* Peer_TutoringUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B333ABC51D3E917B00FDCCA4 /* Peer_TutoringUITests.m */; };
+		B3DD41FB1D4A6AD400244E44 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3DD41FA1D4A6AD400244E44 /* FilterViewController.m */; };
+		B3DD41FE1D4A733300244E44 /* SubjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3DD41FD1D4A733300244E44 /* SubjectTableViewCell.m */; };
 		B3F342971D431C220076C37E /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F342961D431C220076C37E /* CommentTableViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +78,10 @@
 		B333ABC11D3E917B00FDCCA4 /* Peer TutoringUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Peer TutoringUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B333ABC51D3E917B00FDCCA4 /* Peer_TutoringUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Peer_TutoringUITests.m; sourceTree = "<group>"; };
 		B333ABC71D3E917B00FDCCA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B3DD41F91D4A6AD400244E44 /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
+		B3DD41FA1D4A6AD400244E44 /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
+		B3DD41FC1D4A733300244E44 /* SubjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectTableViewCell.h; sourceTree = "<group>"; };
+		B3DD41FD1D4A733300244E44 /* SubjectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectTableViewCell.m; sourceTree = "<group>"; };
 		B3F342951D431C220076C37E /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
 		B3F342961D431C220076C37E /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,6 +120,8 @@
 				B301DD0D1D447483001C307C /* AskQuestionViewController.m */,
 				B333ABA61D3E917B00FDCCA4 /* TableViewController.h */,
 				B333ABA71D3E917B00FDCCA4 /* TableViewController.m */,
+				B3DD41F91D4A6AD400244E44 /* FilterViewController.h */,
+				B3DD41FA1D4A6AD400244E44 /* FilterViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -127,6 +135,8 @@
 				B3F342961D431C220076C37E /* CommentTableViewCell.m */,
 				B301DD061D43BB87001C307C /* WriteCommentTableViewCell.h */,
 				B301DD071D43BB87001C307C /* WriteCommentTableViewCell.m */,
+				B3DD41FC1D4A733300244E44 /* SubjectTableViewCell.h */,
+				B3DD41FD1D4A733300244E44 /* SubjectTableViewCell.m */,
 			);
 			name = "Table View Cells";
 			sourceTree = "<group>";
@@ -342,6 +352,7 @@
 				B31C92531D4262E5004F81F0 /* Comment.m in Sources */,
 				B3F342971D431C220076C37E /* CommentTableViewCell.m in Sources */,
 				B31C924D1D41D87A004F81F0 /* QuestionDetailViewController.m in Sources */,
+				B3DD41FB1D4A6AD400244E44 /* FilterViewController.m in Sources */,
 				B333ABA81D3E917B00FDCCA4 /* TableViewController.m in Sources */,
 				B301DD0E1D447483001C307C /* AskQuestionViewController.m in Sources */,
 				B31C92561D42658F004F81F0 /* HTTPManager.m in Sources */,
@@ -350,6 +361,7 @@
 				B333ABA51D3E917B00FDCCA4 /* AppDelegate.m in Sources */,
 				B301DD0B1D443D60001C307C /* GlobalVals.m in Sources */,
 				B333ABA21D3E917B00FDCCA4 /* main.m in Sources */,
+				B3DD41FE1D4A733300244E44 /* SubjectTableViewCell.m in Sources */,
 				B301DD081D43BB87001C307C /* WriteCommentTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

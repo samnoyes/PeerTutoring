@@ -44,9 +44,54 @@
     [dataTask resume];
 }
 
-+ (void) getQuestionsWithCompletion: (void (^)(NSArray<Question *> *result)) completion {
++ (void) getQuestionBatchWithSubjects: (NSArray *) subjects offset: (NSInteger) offset completion: (void (^)(NSArray<Question *> *result)) completion {
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/filtered_questions", SERVER_URL]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:60.0];
     
-    NSURL* url = [NSURL URLWithString:[SERVER_URL stringByAppendingPathComponent:@"/questions/"]];
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    [request setHTTPMethod:@"POST"];
+    
+    NSError *error;
+    
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:subjects
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    
+    [request setHTTPBody:postData];
+    
+    
+    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *e) {
+        NSArray *questions;
+        NSMutableArray<Question *> *finalArray = [[NSMutableArray alloc] init];
+        
+        if (error == nil) {
+            NSArray* responseArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+            
+            questions = responseArray;
+        }
+        else {
+            NSLog(@"%@", error);
+        }
+        
+        for (NSDictionary *d in questions) {
+            Question *q = [[Question alloc] initWithDictionary: d];
+            [finalArray addObject: q];
+        }
+        completion(finalArray);
+    }];
+    
+    [postDataTask resume];
+}
+
++ (void) getQuestionBatchWithOffset: (NSInteger) offset completion: (void (^)(NSArray<Question *> *result)) completion {
+    
+    NSURL* url = [NSURL URLWithString:[SERVER_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/questions/%lu", (long)offset]]];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"GET";
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];

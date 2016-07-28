@@ -12,18 +12,24 @@
 #import "QuestionDetailViewController.h"
 #import "AskQuestionViewController.h"
 #import "GlobalVals.h"
+#import "FilterViewController.h"
 
 
-@interface ViewController ()
-@property (strong, nonatomic) NSArray<Question *> *questions;
+@interface TableViewController ()
+@property (nonatomic) BOOL needsNewBatch;//if we should get a new batch of questions from the server or not
+@property (strong, nonatomic) FilterViewController *popoverVC;
 @end
 
-@implementation ViewController
+@implementation TableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.needsNewBatch = NO;
     [self updateView];
+    
+    self.popoverVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"filterViewController"];
+    //NSLog(@"View did load.");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,12 +38,15 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.questions count];
+    return [self.questions count]+1;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    QuestionTableViewCell *cell = (QuestionTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-    return cell.questionTextView.contentSize.height + 100;
+    if ([[self tableView:self.tableView cellForRowAtIndexPath:indexPath] isKindOfClass: [QuestionTableViewCell class]]) {
+        QuestionTableViewCell *cell = (QuestionTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+        return cell.questionTextView.contentSize.height + 100;
+    }
+    return [super tableView:self.tableView heightForRowAtIndexPath:indexPath];
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -45,12 +54,14 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"defaultCell"];
         if (cell==nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"defaultCell"];
-            UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-            [spinner setCenter:CGPointMake(cell.frame.size.width/2, cell.frame.size.height/2)];
-            [cell addSubview:spinner]; // spinner is not visible until started
-            [spinner startAnimating];
-            return cell;
+            cell.userInteractionEnabled = NO;
         }
+        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        [spinner setCenter:CGPointMake(cell.frame.size.width/2, [super tableView:self.tableView heightForRowAtIndexPath:indexPath]/2)];
+        [spinner setColor:[UIColor grayColor]];
+        [cell addSubview:spinner]; // spinner is not visible until started
+        [spinner startAnimating];
+        return cell;
     }
     QuestionTableViewCell *cell = (QuestionTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"questionCell"];
     [cell setAuthorText:[self.questions objectAtIndex:indexPath.row].author];
@@ -61,9 +72,11 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    QuestionDetailViewController *vc = (QuestionDetailViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"questionDetail"];
-    vc.question = [self.questions objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:vc animated:YES];
+    if (![[self tableView:self.tableView cellForRowAtIndexPath:indexPath].reuseIdentifier isEqualToString:@"defaultCell"]) {
+        QuestionDetailViewController *vc = (QuestionDetailViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"questionDetail"];
+        vc.question = [self.questions objectAtIndex:indexPath.row];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -73,22 +86,34 @@
 }
 
 - (void) updateView {
-    [HTTPManager getQuestionsWithCompletion: ^(NSArray<Question *> *response){
-        self.questions = response;
-        self.questions = [[self.questions reverseObjectEnumerator] allObjects];
-        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-    }];
+    if (self.popoverVC.selectedSubjects) {
+        [HTTPManager getQuestionBatchWithOffset:self.questions.count completion: ^(NSArray<Question *> *response){
+            
+            if (response.count>0) {
+                NSLog(@"Getting the question batch and adding to questions.");
+                self.needsNewBatch = YES;
+                if (!self.questions) {
+                    self.questions = [[NSMutableArray alloc] init];
+                }
+                [self.questions addObjectsFromArray:response];
+                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+            }
+        }];
+    }
 }
 
 - (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    QuestionTableViewCell *cell = (QuestionTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-    if ([cell.question.author isEqualToString: [GlobalVals sharedGlobalVals].fullName]) {
-        return UITableViewCellEditingStyleDelete;
+    if (![[self tableView:self.tableView cellForRowAtIndexPath:indexPath].reuseIdentifier isEqualToString:@"defaultCell"]) {
+        QuestionTableViewCell *cell = (QuestionTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+        if ([cell.question.author isEqualToString: [GlobalVals sharedGlobalVals].fullName]) {
+            return UITableViewCellEditingStyleDelete;
+        }
+        else {
+            return UITableViewCellEditingStyleNone;
+        }
     }
-    else {
-        return UITableViewCellEditingStyleNone;     
-    }
+    else return UITableViewCellEditingStyleNone;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -100,6 +125,32 @@
         [tableView reloadData]; // tell table to refresh now
         [HTTPManager deleteQuestion:cell.question completion:nil];
     }
+}
+
+- (void) scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.tableView.contentOffset.y >= self.tableView.contentSize.height-self.view.frame.size.height-30 && self.needsNewBatch) {
+        NSLog(@"Is this it?  Are we at the bottom?");
+        self.needsNewBatch = NO;
+        [self updateView];
+    }
+}
+- (IBAction)showFilterDetail:(id)sender {
+    //self.popoverVC.modalPresentationStyle = UIModalPresentationPopover;
+    self.popoverVC.popoverPresentationController.sourceView = self.view;
+    self.popoverVC.popoverPresentationController.barButtonItem = sender;
+    self.popoverVC.popoverPresentationController.delegate = self;
+    
+    [self presentViewController:self.popoverVC animated:NO completion:nil];
+    NSLog(@"Adding view");
+}
+
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller traitCollection:(UITraitCollection *)traitCollection {
+    // This method is called in iOS 8.3 or later regardless of trait collection, in which case use the original presentation style (UIModalPresentationNone signals no adaptation)
+    return UIModalPresentationNone;
+}
+
+- (void) popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverPresentationController {
+    
 }
 
 @end

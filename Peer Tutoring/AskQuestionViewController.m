@@ -10,6 +10,7 @@
 #import "Question.h"
 #import "GlobalVals.h"
 #import "HTTPManager.h"
+#import "TableViewController.h"
 
 @interface AskQuestionViewController ()
 @property (weak, nonatomic) IBOutlet UIPickerView *subjectPicker;
@@ -24,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.subjects = [[NSArray alloc] initWithObjects:@"English", @"Math", @"Biology", @"Chemistry", @"Physics", @"Computer Science", @"History", @"Religion", nil];
+    self.subjects = [AskQuestionViewController subjectArray];
     self.subjectPicker.delegate = self;
     self.subjectPicker.dataSource = self;
     self.editing = NO;
@@ -34,6 +35,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
++ (NSArray *) subjectArray {
+    return [[NSArray alloc] initWithObjects:@"English", @"Math", @"Calculus", @"Statistics", @"French", @"Spanish", @"German", @"Russian", @"Biology", @"Chemistry", @"Physics", @"Computer Science", @"History", @"Religion", @"Arabic", nil];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
@@ -69,7 +74,8 @@
         [HTTPManager postQuestion:q completion:^(BOOL success){
             NSNumber *n = [NSNumber numberWithBool:YES];
             [self.navigationController performSelectorOnMainThread:@selector(popViewControllerAnimated:) withObject:n waitUntilDone:NO];
-            [self.tvc performSelectorOnMainThread:@selector(updateView) withObject:nil waitUntilDone:NO];
+            [self.tvc.questions insertObject:q atIndex:0];
+            [self.tvc.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         }];
     }
     else {
@@ -86,14 +92,6 @@
     [self.submitButton setTitle:@"Submit"];
     self.editing = NO;
 }
-
-// tell the picker the width of each row for a given component
-/*- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-    int sectionWidth = 300;
-    
-    return sectionWidth;
-    
-}*/
 
 
 

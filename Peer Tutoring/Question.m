@@ -44,4 +44,7 @@
         }];
 }
 
+- (NSString *) description {
+    return self.questionText;
+}
 @end

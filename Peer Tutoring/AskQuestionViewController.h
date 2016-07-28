@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TableViewController.h"
+@class TableViewController;
 
 @interface AskQuestionViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate>
-@property (strong, nonatomic) UITableViewController *tvc;
+@property (strong, nonatomic) TableViewController *tvc;
++ (NSArray *) subjectArray;
 @end

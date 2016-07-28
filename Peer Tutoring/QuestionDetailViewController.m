@@ -112,7 +112,7 @@
     
     CGRect rect = self.view.frame;
     rect.origin.y += f;
-    rect.size.height -= f;
+    //rect.size.height -= f;
     self.view.frame = rect;
     
     [UIView commitAnimations];

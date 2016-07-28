@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Question.h"
 
-@interface ViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+@interface TableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UIPopoverPresentationControllerDelegate>
 
+@property (strong, nonatomic) NSMutableArray<Question *> *questions;
 -(void) updateView;
 @end
 
