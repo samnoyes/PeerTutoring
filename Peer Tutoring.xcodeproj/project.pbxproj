@@ -82,6 +82,7 @@
 		B3DD41FA1D4A6AD400244E44 /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
 		B3DD41FC1D4A733300244E44 /* SubjectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectTableViewCell.h; sourceTree = "<group>"; };
 		B3DD41FD1D4A733300244E44 /* SubjectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectTableViewCell.m; sourceTree = "<group>"; };
+		B3E2F1A02076DE3C00E014F1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B3F342951D431C220076C37E /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
 		B3F342961D431C220076C37E /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,6 +156,7 @@
 		B333AB941D3E917A00FDCCA4 = {
 			isa = PBXGroup;
 			children = (
+				B3E2F1A02076DE3C00E014F1 /* README.md */,
 				B333AB9F1D3E917B00FDCCA4 /* Peer Tutoring */,
 				B333ABB91D3E917B00FDCCA4 /* Peer TutoringTests */,
 				B333ABC41D3E917B00FDCCA4 /* Peer TutoringUITests */,
