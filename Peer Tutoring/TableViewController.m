@@ -30,11 +30,17 @@
     
     self.popoverVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"filterViewController"];
     //NSLog(@"View did load.");
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    self.navigationController.navigationBar.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+    self.navigationController.navigationBar.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -86,7 +92,7 @@
 }
 
 - (void) updateView {
-    if (self.popoverVC.selectedSubjects) {
+    if (!self.filteredSubjects || self.filteredSubjects.count == 0) {
         [HTTPManager getQuestionBatchWithOffset:self.questions.count completion: ^(NSArray<Question *> *response){
             
             if (response.count>0) {
@@ -97,6 +103,20 @@
                 }
                 [self.questions addObjectsFromArray:response];
                 [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+            }
+            else {
+                self.noMoreQuestions = YES;
+            }
+        }];
+    }
+    else {
+        NSLog(@"Questions: %@\nCurrent question count is %lu",self.filteredSubjects,(unsigned long)self.questions.count);
+        [HTTPManager getQuestionBatchWithSubjects: self.filteredSubjects offset: self.questions.count completion: ^(NSArray<Question *> *response){
+            self.needsNewBatch = YES;
+            [self.questions addObjectsFromArray:response];
+            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+            if ([response count] == 0) {
+                self.noMoreQuestions = YES;
             }
         }];
     }
@@ -119,28 +139,26 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     QuestionTableViewCell *cell = (QuestionTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSMutableArray *arr = [self.questions mutableCopy];
-        [arr removeObjectAtIndex:indexPath.row];
-        self.questions = [arr copy];
+        [self.questions removeObjectAtIndex:indexPath.row];
         [tableView reloadData]; // tell table to refresh now
         [HTTPManager deleteQuestion:cell.question completion:nil];
     }
 }
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.tableView.contentOffset.y >= self.tableView.contentSize.height-self.view.frame.size.height-30 && self.needsNewBatch) {
+    if (self.tableView.contentOffset.y >= self.tableView.contentSize.height-self.view.frame.size.height-30 && self.needsNewBatch && !self.noMoreQuestions) {
         NSLog(@"Is this it?  Are we at the bottom?");
         self.needsNewBatch = NO;
         [self updateView];
     }
 }
 - (IBAction)showFilterDetail:(id)sender {
-    //self.popoverVC.modalPresentationStyle = UIModalPresentationPopover;
+    self.popoverVC.modalPresentationStyle = UIModalPresentationPopover;
     self.popoverVC.popoverPresentationController.sourceView = self.view;
     self.popoverVC.popoverPresentationController.barButtonItem = sender;
     self.popoverVC.popoverPresentationController.delegate = self;
     
-    [self presentViewController:self.popoverVC animated:NO completion:nil];
+    [self presentViewController:self.popoverVC animated:YES completion:nil];
     NSLog(@"Adding view");
 }
 
@@ -150,7 +168,11 @@
 }
 
 - (void) popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverPresentationController {
-    
+    NSLog(@"You dismissed");
+    self.questions = [[NSMutableArray alloc] init];
+    self.filteredSubjects = [self.popoverVC.selectedSubjects copy];
+    self.noMoreQuestions = NO;
+    [self updateView];
 }
 
 @end

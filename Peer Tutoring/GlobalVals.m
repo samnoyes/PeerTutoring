@@ -1,4 +1,7 @@
 #import "GlobalVals.h"
+//Edits to undo:
+// * QuestionDetailViewController.m line 58
+
 
 @implementation GlobalVals
 
@@ -8,7 +11,6 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[GlobalVals alloc] init];
-        // Do any other initialisation stuff here
         sharedInstance.fullName = @"Sam Noyes";
     });
     return sharedInstance;

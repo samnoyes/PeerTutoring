@@ -21,9 +21,14 @@
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SubjectTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"subjectCell"];
-    if ([cell.subjectLabel.text isEqualToString:@"Subject"])
-        [cell.subjectLabel setText:[[AskQuestionViewController subjectArray] objectAtIndex: indexPath.row]];
-    //cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    //if ([cell.subjectLabel.text isEqualToString:@"Subject"])
+    [cell.subjectLabel setText:[[AskQuestionViewController subjectArray] objectAtIndex: indexPath.row]];
+    if ([self.selectedSubjects containsObject:[[AskQuestionViewController subjectArray] objectAtIndex: indexPath.row]]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
     return cell;
 }
 
@@ -35,24 +40,32 @@
     SubjectTableViewCell *cell = (SubjectTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
         cell.accessoryType = UITableViewCellAccessoryNone;
+        [self.selectedSubjects removeObject:[[AskQuestionViewController subjectArray] objectAtIndex: indexPath.row]];
     }
     else {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        [self.selectedSubjects addObject:[[AskQuestionViewController subjectArray] objectAtIndex: indexPath.row]];
     }
     //[tableView reloadRowsAtIndexPaths: [NSArray arrayWithObject: indexPath]
                     // withRowAnimation: UITableViewRowAnimationNone];
-    NSLog(@"Selected");
+    NSLog(@"Selected array is %@", self.selectedSubjects);
 }
 
 - (NSArray<NSString *> *) selectedSubjects {
-    NSArray *indexPathArray = [self.tableView indexPathsForSelectedRows];
-    NSMutableArray<NSString *> *subjects = [[NSMutableArray alloc] init];
-    for(NSIndexPath *index in indexPathArray)
-    {
-        NSString *subject = [[AskQuestionViewController subjectArray] objectAtIndex:index.row];
-        [subjects addObject:subject];
+    if (!_selectedSubjects) {
+        _selectedSubjects = [[NSMutableArray alloc] init];
     }
-    return [subjects copy];
+    return _selectedSubjects;
 }
+//    NSArray *indexPathArray = [self.tableView indexPathsForSelectedRows];
+//    NSMutableArray<NSString *> *subjects = [[NSMutableArray alloc] init];
+//    for(NSIndexPath *index in indexPathArray)
+//    {
+//        NSString *subject = [[AskQuestionViewController subjectArray] objectAtIndex:index.row];
+//        [subjects addObject:subject];
+//    }
+//    NSLog(@"Hello from inside filter view.  Here's the selected subjects: %@\nHere's the index paths: %@", subjects, indexPathArray);
+//    return [subjects copy];
+//}
 
 @end

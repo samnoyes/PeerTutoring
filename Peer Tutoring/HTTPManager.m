@@ -15,6 +15,7 @@
 + (void) getCommentsWithPostID: (NSInteger) ID completion: (void (^)(NSArray<Comment *> *result)) completion {
     
     NSURL* url = [NSURL URLWithString:[SERVER_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/comments/%ld", (long)ID]]];
+    NSLog(@"%@",url);
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"GET";
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -47,7 +48,8 @@
 + (void) getQuestionBatchWithSubjects: (NSArray *) subjects offset: (NSInteger) offset completion: (void (^)(NSArray<Question *> *result)) completion {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/filtered_questions", SERVER_URL]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/filtered_questions/%lu", SERVER_URL, (long)offset]];
+    NSLog(@"%@",url);
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:60.0];
@@ -93,7 +95,7 @@
     
     NSURL* url = [NSURL URLWithString:[SERVER_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/questions/%lu", (long)offset]]];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
-    request.HTTPMethod = @"GET";
+    request.HTTPMethod = @"POST";
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     
     NSURLSessionConfiguration* config = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -101,7 +103,6 @@
     NSURLSessionDataTask* dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSArray *questions;
         NSMutableArray<Question *> *finalArray = [[NSMutableArray alloc] init];
-        
         if (error == nil) {
             NSArray* responseArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
             
@@ -225,7 +226,7 @@
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"DELETE";
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    
+    NSLog(@"deleting");
     NSURLSessionConfiguration* config = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession* session = [NSURLSession sessionWithConfiguration:config];
     NSURLSessionDataTask* dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {

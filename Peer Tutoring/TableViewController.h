@@ -12,6 +12,8 @@
 @interface TableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UIPopoverPresentationControllerDelegate>
 
 @property (strong, nonatomic) NSMutableArray<Question *> *questions;
+@property (strong, nonatomic) NSArray<NSString *> *filteredSubjects;
+@property (nonatomic) BOOL noMoreQuestions;
 -(void) updateView;
 @end
 

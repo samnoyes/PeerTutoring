@@ -10,5 +10,5 @@
 
 @interface FilterViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 //@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSArray<NSString *> *selectedSubjects;
+@property (strong, nonatomic) NSMutableArray<NSString *> *selectedSubjects;
 @end
