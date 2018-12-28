@@ -69,7 +69,7 @@ app.post('/questions/:num', function(req, res) {
 	var rowsToGet = 20;
 		db.each("select * from (select rowid as id, * from questions order by rowid DESC limit " + rowsToGet + " offset " + req.params.num + ") order by rowid ASC;", function(err, row) {
 	 		if (!err && row.title != null && row.details!=null && row.author != null && row.subject != null && row.time != null) {
-	    		json[c] = { Title: row.title, details: row.details, Author: row.author, Subject: row.subject, Time: row.time, ID: row.id};
+	    		json[c] = { Title: row.title, Details: row.details, Author: row.author, Subject: row.subject, Time: row.time, ID: row.id};
 	    		c++;
 	 		}
 	 		else {
@@ -106,7 +106,7 @@ app.post('/filtered_questions/:num', function(req, res) {
         console.log("select * from (" + queryStr + ") order by rowid ASC;")
 		db.each("select * from (" + queryStr + ") order by rowid ASC;", function(err, row) {//select * from questions WHERE subject = " + subject + " order by rowid DESC limit " + rowsToGet + " offset " + req.params.num + ") order by rowid ASC;", function(err, row) {
 	 		if (!err && row.title != null && row.details != null && row.author != null && row.subject != null && row.time != null) {
-	    		json[c] = { Title: row.title, details: row.details, Author: row.author, Subject: row.subject, Time: row.time, ID: row.id};
+	    		json[c] = { Title: row.title, Details: row.details, Author: row.author, Subject: row.subject, Time: row.time, ID: row.id};
 	    		c++;
 	 		}
 	 		else {
@@ -276,7 +276,7 @@ app.get('/question/:id', function(req, res) {
 	     			return res.send("Error 400: bad syntax!");
 	     		}
 	     		else if (row.title != null && row.details != null && row.author != null) {
-	     			return res.json({Title: row.title, details: row.details, Author: row.author, Subject: row.subject, time: row.time});
+	     			return res.json({Title: row.title, Details: row.details, Author: row.author, Subject: row.subject, time: row.time});
 	     			console.log("Found that match!");
 	     			match = true;
 	     		}
