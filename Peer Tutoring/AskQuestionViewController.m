@@ -72,7 +72,7 @@
     if (!self.editing) {
         row = [self.subjectPicker selectedRowInComponent:0];
         NSString *sel = [self.subjects objectAtIndex:row];
-        Question *q = [[Question alloc] initNewQuestionWithTitle:self.questionTitleTextView text:self.questionDetailsTextView.text author:[GlobalVals sharedGlobalVals].fullName subject:sel];
+        Question *q = [[Question alloc] initNewQuestionWithTitle:self.questionTitleTextView.text details:self.questionDetailsTextView.text author:[GlobalVals sharedGlobalVals].fullName subject:sel];
         [HTTPManager postQuestion:q completion:^(BOOL success){
             NSNumber *n = [NSNumber numberWithBool:YES];
             [self.navigationController performSelectorOnMainThread:@selector(popViewControllerAnimated:) withObject:n waitUntilDone:NO];
@@ -81,7 +81,8 @@
         }];
     }
     else {
-        [self.questionTextView resignFirstResponder];
+        [self.questionTitleTextView resignFirstResponder];
+        [self.questionDetailsTextView resignFirstResponder];
     }
 }
 

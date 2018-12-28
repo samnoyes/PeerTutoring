@@ -71,7 +71,7 @@
     }
     QuestionTableViewCell *cell = (QuestionTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"questionCell"];
     [cell setAuthorText:[self.questions objectAtIndex:indexPath.row].author];
-    [cell setQuestionText:[self.questions objectAtIndex:indexPath.row].questionText];
+    [cell setQuestionText:[self.questions objectAtIndex:indexPath.row].questionTitle];
     [cell setSubjectText:[self.questions objectAtIndex:indexPath.row].subject];
     cell.question = [self.questions objectAtIndex:indexPath.row];
     return cell;
