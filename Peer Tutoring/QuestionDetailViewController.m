@@ -25,7 +25,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.subjectLabel setText:self.question.subject];
-    [self.questionTextView setText:self.question.questionText];
+    [self.questionTextView setText:self.question.questionTitle];
     [self.authorLabel setText:self.question.author];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
