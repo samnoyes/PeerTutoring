@@ -14,10 +14,10 @@ app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
 
 var questions = [//Sample Questions
-  { author : 'Audrey Hepburn', title: "Audrey Hepburn quote", description : "Nothing is impossible, the word itself says 'I'm possible'!"},
-  { author : 'Walt Disney', title: "Walt Disney quote", description : "You may not realize it when it happens, but a kick in the teeth may be the best thing in the world for you"},
-  { author : 'Unknown', title: "Unknown quote", description : "Even the greatest was once a beginner. Don't be afraid to take that first step."},
-  { author : 'Neale Donald Walsch', title: "Neale Donald Walsch quote", description : "You are afraid to die, and you're afraid to live. What a way to exist."}
+  { Author : 'Audrey Hepburn', Title: "Audrey Hepburn quote", Details : "Nothing is impossible, the word itself says 'I'm possible'!"},
+  { Author : 'Walt Disney', Title: "Walt Disney quote", Details : "You may not realize it when it happens, but a kick in the teeth may be the best thing in the world for you"},
+  { Author : 'Unknown', Title: "Unknown quote", Details : "Even the greatest was once a beginner. Don't be afraid to take that first step."},
+  { Author : 'Neale Donald Walsch', Title: "Neale Donald Walsch quote", Details : "You are afraid to die, and you're afraid to live. What a way to exist."}
 ];
 
 if (!exists) {
@@ -28,13 +28,13 @@ if (!exists) {
 	db.serialize(function(){
 			console.log("adding first elements to database");
 
-			db.run('CREATE TABLE questions(author TEXT,title TEXT,description TEXT,subject TEXT,time DATETIME)');
+			db.run('CREATE TABLE questions(author TEXT,title TEXT,details TEXT,subject TEXT,time DATETIME)');
 			db.run('CREATE TABLE comments(author TEXT,text TEXT,postID INTEGER,time DATETIME)');
 
 			var query = db.prepare('INSERT INTO questions VALUES(?,?,?,?,?)');
 
 			for (var q in questions) {
-				query.run(questions[q]['author'], questions[q]['title'],questions[q]['description'],"English",new Date());
+				query.run(questions[q]['author'], questions[q]['title'],questions[q]['details'],"English",new Date());
 			}
 
 			query.finalize();
@@ -43,7 +43,7 @@ if (!exists) {
 }
 
 app.post('/question', function(req, res) {
-	if (!req.body.hasOwnProperty('author') || !req.body.hasOwnProperty('title') || !req.body.hasOwnProperty('description') || !req.body.hasOwnProperty('subject')) {
+	if (!req.body.hasOwnProperty('author') || !req.body.hasOwnProperty('title') || !req.body.hasOwnProperty('details') || !req.body.hasOwnProperty('subject')) {
 		res.statusCode = 400;
 		console.log(req.body);
 		return res.send('Error 400: bad syntax');
@@ -52,7 +52,7 @@ app.post('/question', function(req, res) {
 
 	db.serialize(function(){
 		var query = db.prepare('INSERT INTO questions VALUES(?,?,?,?,?)');
-		query.run(req.body.author, req.body.title, req.body.description, req.body.subject,new Date());
+		query.run(req.body.author, req.body.title, req.body.details, req.body.subject,new Date());
 		query.finalize();
 	});
 
@@ -68,8 +68,8 @@ app.post('/questions/:num', function(req, res) {
 	var numRows = 0;
 	var rowsToGet = 20;
 		db.each("select * from (select rowid as id, * from questions order by rowid DESC limit " + rowsToGet + " offset " + req.params.num + ") order by rowid ASC;", function(err, row) {
-	 		if (!err && row.title != null && row.description!=null && row.author != null && row.subject != null && row.time != null) {
-	    		json[c] = { Title: row.title, Description: row.description, Author: row.author, Subject: row.subject, Time: row.time, ID: row.id};
+	 		if (!err && row.title != null && row.details!=null && row.author != null && row.subject != null && row.time != null) {
+	    		json[c] = { Title: row.title, details: row.details, Author: row.author, Subject: row.subject, Time: row.time, ID: row.id};
 	    		c++;
 	 		}
 	 		else {
@@ -105,8 +105,8 @@ app.post('/filtered_questions/:num', function(req, res) {
         queryStr += " order by rowid DESC limit " + rowsToGet + " offset " + req.params.num;
         console.log("select * from (" + queryStr + ") order by rowid ASC;")
 		db.each("select * from (" + queryStr + ") order by rowid ASC;", function(err, row) {//select * from questions WHERE subject = " + subject + " order by rowid DESC limit " + rowsToGet + " offset " + req.params.num + ") order by rowid ASC;", function(err, row) {
-	 		if (!err && row.title != null && row.description != null && row.author != null && row.subject != null && row.time != null) {
-	    		json[c] = { Title: row.title, Description: row.description, Author: row.author, Subject: row.subject, Time: row.time, ID: row.id};
+	 		if (!err && row.title != null && row.details != null && row.author != null && row.subject != null && row.time != null) {
+	    		json[c] = { Title: row.title, details: row.details, Author: row.author, Subject: row.subject, Time: row.time, ID: row.id};
 	    		c++;
 	 		}
 	 		else {
@@ -194,19 +194,19 @@ app.delete('/question/:id', function(req, res) {
 app.put('/question', function(req,res) {//Edit a question
 	if (exists) {
 		db.serialize( function() {
-			if (req.body.hasOwnProperty('author') && req.body.hasOwnProperty('title') && req.body.hasOwnProperty('description') && req.body.hasOwnProperty('id')) {
-				db.each("SELECT rowid AS id, title, description, author FROM questions WHERE rowid = " + req.body.id + "\nUNION ALL\nSELECT NULL, NULL, NULL\nLIMIT 1;", function(err, row) {
+			if (req.body.hasOwnProperty('author') && req.body.hasOwnProperty('title') && req.body.hasOwnProperty('details') && req.body.hasOwnProperty('id')) {
+				db.each("SELECT rowid AS id, title, details, author FROM questions WHERE rowid = " + req.body.id + "\nUNION ALL\nSELECT NULL, NULL, NULL\nLIMIT 1;", function(err, row) {
 					if (err) {
 						console.log(err);
 						res.send("Error 400: bad syntax!");
 					}
-					else if (row.title != null && row.description != null && row.author != null) {
-						db.run("UPDATE questions SET author = '" + req.body.author + "', title = '" + req.body.title + "', description = '" + req.body.description + "' WHERE rowid = " + row.id, function(err) {
+					else if (row.title != null && row.details != null && row.author != null) {
+						db.run("UPDATE questions SET author = '" + req.body.author + "', title = '" + req.body.title + "', details = '" + req.body.details + "' WHERE rowid = " + row.id, function(err) {
 							if (err) {
 								console.log(err);
 								return res.send("Error 400: bad syntax!");
 							}
-							res.send("Successfully updated author, title, and description");
+							res.send("Successfully updated author, title, and details");
 						});
 					}
 					else {
@@ -214,19 +214,19 @@ app.put('/question', function(req,res) {//Edit a question
 					}
 				});
 			}
-			else if (req.body.hasOwnProperty('title') && req.body.hasOwnProperty('description') && req.body.hasOwnProperty('id')) {
-				db.each("SELECT rowid AS id, title, description, author FROM questions WHERE rowid = " + req.body.id + "\nUNION ALL\nSELECT NULL, NULL, NULL\nLIMIT 1;", function(err, row) {
+			else if (req.body.hasOwnProperty('title') && req.body.hasOwnProperty('details') && req.body.hasOwnProperty('id')) {
+				db.each("SELECT rowid AS id, title, details, author FROM questions WHERE rowid = " + req.body.id + "\nUNION ALL\nSELECT NULL, NULL, NULL\nLIMIT 1;", function(err, row) {
 					if (err) {
 						console.log(err);
 						res.send("Error 400: bad syntax!");
 					}
-					else if (row.title != null && row.description != null && row.author != null) {
-						db.run("UPDATE questions SET title = '" + req.body.title + "', description = '" + req.body.description + "' WHERE rowid = " + row.id, function(err) {
+					else if (row.title != null && row.details != null && row.author != null) {
+						db.run("UPDATE questions SET title = '" + req.body.title + "', details = '" + req.body.details + "' WHERE rowid = " + row.id, function(err) {
 							if (err) {
 								console.log(err);
 								return res.send("Error 400: bad syntax!");
 							}
-							res.send("Successfully updated title and description");
+							res.send("Successfully updated title and details");
 						});
 					}
 					else {
@@ -235,12 +235,12 @@ app.put('/question', function(req,res) {//Edit a question
 				});
 			}
 			else if (req.body.hasOwnProperty('author') && req.body.hasOwnProperty('id')) {
-				db.each("SELECT rowid AS id, title, description, author FROM questions WHERE rowid = " + req.body.id + "\nUNION ALL\nSELECT NULL, NULL, NULL\nLIMIT 1;", function(err, row) {
+				db.each("SELECT rowid AS id, title, details, author FROM questions WHERE rowid = " + req.body.id + "\nUNION ALL\nSELECT NULL, NULL, NULL\nLIMIT 1;", function(err, row) {
 					if (err) {
 						console.log(err);
 						res.send("Error 400: bad syntax!");
 					}
-					else if (row.title != null && row.description != null && row.author != null) {
+					else if (row.title != null && row.details != null && row.author != null) {
 						db.run("UPDATE questions SET author = '" + req.body.author + "' WHERE rowid = " + row.id, function(err) {
 							if (err) {
 								console.log(err);
@@ -270,13 +270,13 @@ app.get('/', function(req, res) {
 app.get('/question/:id', function(req, res) {
 	if (exists) {
 		db.serialize( function() {
-			db.each("SELECT rowid AS id, title, description, author, subject, time FROM questions WHERE rowid = " + req.params.id + "\nUNION ALL\nSELECT NULL, NULL, NULL, NULL, NULL\nLIMIT 1;", function(err, row) {
+			db.each("SELECT rowid AS id, title, details, author, subject, time FROM questions WHERE rowid = " + req.params.id + "\nUNION ALL\nSELECT NULL, NULL, NULL, NULL, NULL\nLIMIT 1;", function(err, row) {
 	     		if (err) {
 	     			console.log(err);
 	     			return res.send("Error 400: bad syntax!");
 	     		}
-	     		else if (row.title != null && row.description != null && row.author != null) {
-	     			return res.json({Title: row.title, Description: row.description, Author: row.author, Subject: row.subject, time: row.time});
+	     		else if (row.title != null && row.details != null && row.author != null) {
+	     			return res.json({Title: row.title, details: row.details, Author: row.author, Subject: row.subject, time: row.time});
 	     			console.log("Found that match!");
 	     			match = true;
 	     		}
