@@ -14,7 +14,8 @@
 
 @interface AskQuestionViewController ()
 @property (weak, nonatomic) IBOutlet UIPickerView *subjectPicker;
-@property (weak, nonatomic) IBOutlet UITextView *questionTextView;
+@property (weak, nonatomic) IBOutlet UITextView *questionDetailsTextView;
+@property (weak, nonatomic) IBOutlet UITextView *questionTitleTextView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 @property (strong, nonatomic) NSArray *subjects;
 @property (nonatomic) BOOL editing;
@@ -29,7 +30,8 @@
     self.subjectPicker.delegate = self;
     self.subjectPicker.dataSource = self;
     self.editing = NO;
-    self.questionTextView.delegate = self;
+    self.questionTitleTextView.delegate = self;
+    self.questionDetailsTextView.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,7 +72,7 @@
     if (!self.editing) {
         row = [self.subjectPicker selectedRowInComponent:0];
         NSString *sel = [self.subjects objectAtIndex:row];
-        Question *q = [[Question alloc] initNewQuestionWithText:self.questionTextView.text author:[GlobalVals sharedGlobalVals].fullName subject:sel];
+        Question *q = [[Question alloc] initNewQuestionWithTitle:self.questionTitleTextView text:self.questionDetailsTextView.text author:[GlobalVals sharedGlobalVals].fullName subject:sel];
         [HTTPManager postQuestion:q completion:^(BOOL success){
             NSNumber *n = [NSNumber numberWithBool:YES];
             [self.navigationController performSelectorOnMainThread:@selector(popViewControllerAnimated:) withObject:n waitUntilDone:NO];

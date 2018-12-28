@@ -14,7 +14,8 @@
 - (id) initWithDictionary: (NSDictionary *) dict {
     self = [super init];
     if (self) {
-        self.questionText = [dict objectForKey: @"Text"];
+        self.questionTitle = [dict objectForKey: @"Title"];
+        self.questionDetails = [dict objectForKey: @"Details"];
         self.author = [dict objectForKey: @"Author"];
         self.subject = [dict objectForKey: @"Subject"];
         self.ID = [[dict objectForKey: @"ID"] intValue];
@@ -27,10 +28,11 @@
     return self;
 }
 
-- (id) initNewQuestionWithText: (NSString *) t author: (NSString *) a subject: (NSString *) s {
+- (id) initNewQuestionWithTitle: (NSString *) title details: (NSString *) details author: (NSString *) a subject: (NSString *) s {
     self = [super init];
     if (self) {
-        self.questionText = t;
+        self.questionTitle = title;
+        self.questionDetails = details;
         self.author = a;
         self.subject = s;
     }
@@ -45,6 +47,6 @@
 }
 
 - (NSString *) description {
-    return self.questionText;
+    return [NSString stringWithFormat:@"%@\n\n%@",self.questionTitle, self.questionDetails];
 }
 @end

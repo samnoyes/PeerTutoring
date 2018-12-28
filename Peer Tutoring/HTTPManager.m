@@ -10,6 +10,10 @@
 
 #define SERVER_URL @"http://localhost:3020"
 
+@interface HTTPManager ()
+@property (strong, nonatomic) NSObject<NSURLSessionDelegate> *URLDelegate;
+@end
+
 @implementation HTTPManager
 
 + (void) getCommentsWithPostID: (NSInteger) ID completion: (void (^)(NSArray<Comment *> *result)) completion {
@@ -160,7 +164,7 @@
 
 }
 
-+ (void) postQuestion: (Question *) q completion: (void (^)(BOOL success)) completion {
++ (void) postQuestion: (Question *) q completion: (void (^)(BOOL success)) completion {//Submit question to server
     NSError *error;
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -174,7 +178,7 @@
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     
     [request setHTTPMethod:@"POST"];
-    NSDictionary *mapData = [[NSDictionary alloc] initWithObjectsAndKeys:  q.questionText, @"text", q.author, @"author", q.subject, @"subject", nil];
+    NSDictionary *mapData = [[NSDictionary alloc] initWithObjectsAndKeys:  q.questionTitle, @"title", q.questionDetails, @"details", q.author, @"author", q.subject, @"subject", nil];
     
     NSData *postData = [NSJSONSerialization dataWithJSONObject:mapData
                                                        options:NSJSONWritingPrettyPrinted
