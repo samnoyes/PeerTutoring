@@ -27,12 +27,12 @@
     // Configure the view for the selected state
 }
 
-- (void) setQuestionText:(NSString *) t {
+- (void) setQuestionTitle:(NSString *) t {
     if ([t length]>65) {
-        [self.questionTextView setText:[NSString stringWithFormat:@"%@...", [t substringToIndex:65]]];
+        [self.questionTitleView setText:[NSString stringWithFormat:@"%@...", [t substringToIndex:65]]];
     }
     else {
-        [self.questionTextView setText:t];
+        [self.questionTitleView setText:t];
     }
 }
 

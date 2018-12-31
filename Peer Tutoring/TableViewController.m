@@ -50,7 +50,7 @@
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([[self tableView:self.tableView cellForRowAtIndexPath:indexPath] isKindOfClass: [QuestionTableViewCell class]]) {
         QuestionTableViewCell *cell = (QuestionTableViewCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-        return cell.questionTextView.contentSize.height + 100;
+        return cell.questionTitleView.contentSize.height + 100;
     }
     return [super tableView:self.tableView heightForRowAtIndexPath:indexPath];
 }
@@ -71,7 +71,7 @@
     }
     QuestionTableViewCell *cell = (QuestionTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"questionCell"];
     [cell setAuthorText:[self.questions objectAtIndex:indexPath.row].author];
-    [cell setQuestionText:[self.questions objectAtIndex:indexPath.row].questionTitle];
+    [cell setQuestionTitle:[self.questions objectAtIndex:indexPath.row].questionTitle];
     [cell setSubjectText:[self.questions objectAtIndex:indexPath.row].subject];
     cell.question = [self.questions objectAtIndex:indexPath.row];
     return cell;

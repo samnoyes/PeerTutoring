@@ -12,7 +12,8 @@
 @interface QuestionDetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *subjectLabel;
-@property (weak, nonatomic) IBOutlet UITextView *questionTextView;
+@property (weak, nonatomic) IBOutlet UITextView *questionTitleView;
+@property (weak, nonatomic) IBOutlet UITextView *questionDetailsView;
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
 @property (strong, nonatomic) Question *question;
 - (void) updateView;
