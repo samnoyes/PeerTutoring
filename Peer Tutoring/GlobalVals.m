@@ -2,7 +2,9 @@
 //Edits to undo:
 // * QuestionDetailViewController.m line 58
 //TODO:
-//
+//Add tagging
+//Add replying to comments
+//Add push notifications when you get tagged
 
 
 @implementation GlobalVals
