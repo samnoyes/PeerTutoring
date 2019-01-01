@@ -59,7 +59,7 @@ app.post('/question', function(req, res) {
 	res.json(true);
 });
 
-app.post('/questions/:num', function(req, res) {
+app.post('/questions/:num', function(req, res) {//Returns batch of 20 questions offset by "num" (when user scrolls down and more questions should be loaded)
 	var json = [];
 	var c = 0;
 	res.setHeader('Content-Type', 'application/json');
@@ -73,14 +73,13 @@ app.post('/questions/:num', function(req, res) {
 	 		}
 	 		else if (err) {
 	 			console.log("Error: " + err);
-	 			return res.send("Error 400: bad syntax!");
 	 		}
 	 		else {
 	 			console.log("Question incorrectly formatted or corrupted");
-	 			return res.send("Error 400: bad syntax!");
 	 		}
-		}, function(err, rows) {
+		}, function(err, rows) {//runs after all rows have been visited
 			if (!err) {
+				console.log("Sending json object");
 				return res.json(json);
 			}
 			console.log(err)
@@ -112,9 +111,11 @@ app.post('/filtered_questions/:num', function(req, res) {
 	    		json[c] = { Title: row.title, Details: row.details, Author: row.author, Subject: row.subject, Time: row.time, ID: row.id};
 	    		c++;
 	 		}
+	 		else if (err) {
+	 			console.log("Error: " + err);
+	 		}
 	 		else {
-	 			console.log(err);
-	 			return res.send("Error 400: bad syntax!");
+	 			console.log("Question incorrectly formatted or corrupted");
 	 		}
 		}, function(err, rows) {
 			if (!err) {
@@ -306,7 +307,6 @@ app.get('/comments/:id', function(req, res) {
  		}
  		else {
  			console.log(err);
- 			return res.send("Error 400: bad syntax!");
  		}
 	}, function(err, rows) {
 		if (!err) {
