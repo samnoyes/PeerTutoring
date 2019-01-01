@@ -2,8 +2,10 @@
 //Edits to undo:
 // * QuestionDetailViewController.m line 58
 //TODO:
+//Change AskQuestionViewController to TableViewController? So the text entry would be on a separate page rather than embedded in the current one.
+//Fix commenting. Maybe add a separate CommentDetailViewController where the user could see an expanded version of the comment and reply?
+//Related: add replying to comments
 //Add tagging
-//Add replying to comments
 //Add push notifications when you get tagged
 
 

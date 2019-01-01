@@ -15,10 +15,11 @@
 @interface AskQuestionViewController ()
 @property (weak, nonatomic) IBOutlet UIPickerView *subjectPicker;
 @property (weak, nonatomic) IBOutlet UITextView *questionDetailsTextView;
-@property (weak, nonatomic) IBOutlet UITextView *questionTitleTextView;
+@property (weak, nonatomic) IBOutlet UITextField *questionTitleTextView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 @property (strong, nonatomic) NSArray *subjects;
 @property (nonatomic) BOOL editing;
+@property (strong, nonatomic) UIColor *textPreviewColor;
 @end
 
 @implementation AskQuestionViewController
@@ -32,6 +33,7 @@
     self.editing = NO;
     self.questionTitleTextView.delegate = self;
     self.questionDetailsTextView.delegate = self;
+    self.textPreviewColor = self.questionDetailsTextView.textColor;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,6 +72,10 @@
 - (IBAction)submitPressed:(id)sender {
     NSInteger row;
     if (!self.editing) {
+        if ([self.questionDetailsTextView.text isEqualToString:@""] || [self.questionTitleTextView.text isEqualToString:@""]) {
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Title and Details cannot be left blank."preferredStyle:UIAlertControllerStyleAlert];
+            [self presentViewController:alert animated:NO completion:nil];
+        }
         row = [self.subjectPicker selectedRowInComponent:0];
         NSString *sel = [self.subjects objectAtIndex:row];
         Question *q = [[Question alloc] initNewQuestionWithTitle:self.questionTitleTextView.text details:self.questionDetailsTextView.text author:[GlobalVals sharedGlobalVals].fullName subject:sel];
@@ -87,15 +93,32 @@
 }
 
 - (void) textViewDidBeginEditing:(UITextView *)textView {
+    if (![self.questionDetailsTextView.textColor isEqual:[UIColor blackColor]]) {
+        [self.questionDetailsTextView setTextColor: [UIColor blackColor]];
+        [self.questionDetailsTextView setText:@""];
+    }
     [self.submitButton setTitle:@"Done"];
     self.editing = YES;
 }
 
 - (void) textViewDidEndEditing:(UITextView *)textView {
+    if ([self.questionDetailsTextView.text isEqualToString:@""]) {
+        [self.questionDetailsTextView setTextColor: self.textPreviewColor];
+        [self.questionDetailsTextView setText:@" Details"];
+    }
     [self.submitButton setTitle:@"Submit"];
     self.editing = NO;
 }
 
+- (void) textFieldDidBeginEditing:(UITextView *)textView {
+    [self.submitButton setTitle:@"Done"];
+    self.editing = YES;
+}
+
+- (void) textFieldDidEndEditing:(UITextField *)textField {
+    [self.submitButton setTitle:@"Submit"];
+    self.editing = NO;
+}
 
 
 

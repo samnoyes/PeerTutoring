@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class TableViewController;
 
-@interface AskQuestionViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate>
+@interface AskQuestionViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate, UITextFieldDelegate>
 @property (strong, nonatomic) TableViewController *tvc;
 + (NSArray *) subjectArray;
 @end
