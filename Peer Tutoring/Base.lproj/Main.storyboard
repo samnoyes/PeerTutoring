@@ -84,7 +84,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="authorLabel" destination="4re-WK-O5g" id="Fg4-qQ-sxo"/>
-                                    <outlet property="questionTextView" destination="Ubi-xg-sSe" id="lNj-9b-e3A"/>
+                                    <outlet property="questionTitleView" destination="Ubi-xg-sSe" id="7Kp-Ua-q9k"/>
                                     <outlet property="subjectLabel" destination="Wdq-MW-8OW" id="3wn-rO-OWb"/>
                                 </connections>
                             </tableViewCell>
@@ -170,7 +170,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="questionTextView" destination="kvq-O7-r66" id="xko-ld-rXf"/>
+                        <outlet property="questionDetailsTextView" destination="kvq-O7-r66" id="sCT-id-zGQ"/>
                         <outlet property="subjectPicker" destination="ecX-6b-ERm" id="tgz-Jn-mV9"/>
                         <outlet property="submitButton" destination="RMu-7F-lcm" id="ejR-PF-4dK"/>
                     </connections>
@@ -316,7 +316,7 @@
                     </view>
                     <connections>
                         <outlet property="authorLabel" destination="cK0-4j-Jit" id="0db-2z-5Ty"/>
-                        <outlet property="questionTextView" destination="Gst-i0-FRm" id="Nvu-8i-qwx"/>
+                        <outlet property="questionDetailsView" destination="Gst-i0-FRm" id="2hd-jO-Kq2"/>
                         <outlet property="subjectLabel" destination="gX6-9r-3Xl" id="yjh-8F-X6d"/>
                         <outlet property="tableView" destination="XUW-eX-eZk" id="klr-Tn-LbC"/>
                     </connections>

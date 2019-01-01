@@ -14,10 +14,10 @@ app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
 
 var questions = [//Sample Questions
-  { Author : 'Audrey Hepburn', Title: "Audrey Hepburn quote", Details : "Nothing is impossible, the word itself says 'I'm possible'!"},
-  { Author : 'Walt Disney', Title: "Walt Disney quote", Details : "You may not realize it when it happens, but a kick in the teeth may be the best thing in the world for you"},
-  { Author : 'Unknown', Title: "Unknown quote", Details : "Even the greatest was once a beginner. Don't be afraid to take that first step."},
-  { Author : 'Neale Donald Walsch', Title: "Neale Donald Walsch quote", Details : "You are afraid to die, and you're afraid to live. What a way to exist."}
+  { author : 'Audrey Hepburn', title: "Audrey Hepburn quote", details : "Nothing is impossible, the word itself says 'I'm possible'!"},
+  { author : 'Walt Disney', title: "Walt Disney quote", details : "You may not realize it when it happens, but a kick in the teeth may be the best thing in the world for you"},
+  { author : 'Unknown', title: "Unknown quote", details : "Even the greatest was once a beginner. Don't be afraid to take that first step."},
+  { author : 'Neale Donald Walsch', title: "Neale Donald Walsch quote", details : "You are afraid to die, and you're afraid to live. What a way to exist."}
 ];
 
 if (!exists) {
@@ -60,7 +60,6 @@ app.post('/question', function(req, res) {
 });
 
 app.post('/questions/:num', function(req, res) {
-	console.log("Got the post boys");
 	var json = [];
 	var c = 0;
 	res.setHeader('Content-Type', 'application/json');
@@ -72,8 +71,12 @@ app.post('/questions/:num', function(req, res) {
 	    		json[c] = { Title: row.title, Details: row.details, Author: row.author, Subject: row.subject, Time: row.time, ID: row.id};
 	    		c++;
 	 		}
+	 		else if (err) {
+	 			console.log("Error: " + err);
+	 			return res.send("Error 400: bad syntax!");
+	 		}
 	 		else {
-	 			console.log(err);
+	 			console.log("Question incorrectly formatted or corrupted");
 	 			return res.send("Error 400: bad syntax!");
 	 		}
 		}, function(err, rows) {
