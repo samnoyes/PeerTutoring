@@ -125,7 +125,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection headerTitle="submit a question" id="FEv-0D-8s4">
+                            <tableViewSection headerTitle="ask a question" id="FEv-0D-8s4">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="a6u-wb-6CW">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
@@ -184,7 +184,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="f6r-No-CXf">
-                        <barButtonItem key="rightBarButtonItem" title="submit" id="vat-18-XQ3">
+                        <barButtonItem key="rightBarButtonItem" title="Submit" id="vat-18-XQ3">
                             <connections>
                                 <action selector="submitPressed:" destination="7Yl-Hv-fkU" id="6aS-EW-ga1"/>
                             </connections>
