@@ -13,7 +13,7 @@
 
 @property (strong, nonatomic) NSMutableArray<Question *> *questions;
 @property (strong, nonatomic) NSArray<NSString *> *filteredSubjects;
-@property (nonatomic) BOOL noMoreQuestions;
+@property (nonatomic, setter=setNoMoreQuestions:) BOOL noMoreQuestions;
 -(void) updateView;
 @end
 

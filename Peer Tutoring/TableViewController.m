@@ -19,6 +19,7 @@
 @property (nonatomic) BOOL needsNewBatch;//if we should get a new batch of questions from the server or not
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *askQuestionButton;
 @property (strong, nonatomic) FilterViewController *popoverVC;
+@property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @end
 
 @implementation TableViewController
@@ -31,6 +32,9 @@
     
     self.popoverVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"filterViewController"];
     //NSLog(@"View did load.");
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(tableViewRefreshed) forControlEvents:UIControlEventValueChanged];
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     
 }
 
@@ -43,6 +47,22 @@
     self.navigationController.navigationBar.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
     self.navigationController.navigationBar.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
 }
+
+- (void) setNoMoreQuestions:(BOOL)noMoreQuestions {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (noMoreQuestions && [self.spinner isAnimating] && self.noMoreQuestions != noMoreQuestions) {
+            [self.spinner stopAnimating];
+        }
+        _noMoreQuestions = noMoreQuestions;
+    });
+}
+
+- (void) tableViewRefreshed {
+    NSLog(@"Table view refreshed");
+    self.questions = [[NSMutableArray alloc] init];
+    [self updateView];
+}
+
 - (IBAction)askAQuestion:(UIBarButtonItem *)sender {
     AskQuestionViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"askQuestion"];
     [self.navigationController pushViewController:vc animated:YES];
@@ -67,11 +87,12 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"defaultCell"];
             cell.userInteractionEnabled = NO;
         }
-        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        [spinner setCenter:CGPointMake(cell.frame.size.width/2, [super tableView:self.tableView heightForRowAtIndexPath:indexPath]/2)];
-        [spinner setColor:[UIColor grayColor]];
-        [cell addSubview:spinner]; // spinner is not visible until started
-        [spinner startAnimating];
+        if (!self.noMoreQuestions) {
+            [self.spinner setCenter:CGPointMake(cell.frame.size.width/2, [super tableView:self.tableView heightForRowAtIndexPath:indexPath]/2)];
+            [self.spinner setColor:[UIColor grayColor]];
+            [cell addSubview:self.spinner]; // spinner is not visible until started
+            [self.spinner startAnimating];
+        }
         return cell;
     }
     QuestionTableViewCell *cell = (QuestionTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"questionCell"];
@@ -97,6 +118,7 @@
 }
 
 - (void) updateView {
+    NSLog(@"Updating view");
     if (!self.filteredSubjects || self.filteredSubjects.count == 0) {
         [HTTPManager getQuestionBatchWithOffset:self.questions.count completion: ^(NSArray<Question *> *response){
             
@@ -112,6 +134,9 @@
             else {
                 self.noMoreQuestions = YES;
             }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.refreshControl endRefreshing];
+            });
         }];
     }
     else {
@@ -123,6 +148,10 @@
             if ([response count] == 0) {
                 self.noMoreQuestions = YES;
             }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.refreshControl endRefreshing];
+            });
         }];
     }
 }
