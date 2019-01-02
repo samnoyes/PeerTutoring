@@ -17,6 +17,7 @@
 
 @interface TableViewController ()
 @property (nonatomic) BOOL needsNewBatch;//if we should get a new batch of questions from the server or not
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *askQuestionButton;
 @property (strong, nonatomic) FilterViewController *popoverVC;
 @end
 
@@ -41,6 +42,10 @@
 - (void) viewDidAppear:(BOOL)animated {
     self.navigationController.navigationBar.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
     self.navigationController.navigationBar.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
+}
+- (IBAction)askAQuestion:(UIBarButtonItem *)sender {
+    AskQuestionViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"askQuestion"];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

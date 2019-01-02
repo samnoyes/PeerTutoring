@@ -11,11 +11,11 @@
 #import "GlobalVals.h"
 #import "HTTPManager.h"
 #import "TableViewController.h"
+#import "SubjectPickerTableViewController.h"
 
 @interface AskQuestionViewController ()
-@property (weak, nonatomic) IBOutlet UIPickerView *subjectPicker;
 @property (weak, nonatomic) IBOutlet UITextView *questionDetailsTextView;
-@property (weak, nonatomic) IBOutlet UITextField *questionTitleTextView;
+@property (weak, nonatomic) IBOutlet UITextField *questionTitleTextField;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 @property (strong, nonatomic) NSArray *subjects;
 @property (nonatomic) BOOL editing;
@@ -28,12 +28,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.subjects = [AskQuestionViewController subjectArray];
-    self.subjectPicker.delegate = self;
-    self.subjectPicker.dataSource = self;
     self.editing = NO;
-    self.questionTitleTextView.delegate = self;
+    self.questionTitleTextField.delegate = self;
     self.questionDetailsTextView.delegate = self;
     self.textPreviewColor = self.questionDetailsTextView.textColor;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,15 +69,13 @@
 }
 
 - (IBAction)submitPressed:(id)sender {
-    NSInteger row;
+    //NSInteger row;
     if (!self.editing) {
-        if ([self.questionDetailsTextView.text isEqualToString:@""] || [self.questionTitleTextView.text isEqualToString:@""]) {
+        if ([self.questionDetailsTextView.text isEqualToString:@""] || [self.questionTitleTextField.text isEqualToString:@""]) {
             UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Title and Details cannot be left blank."preferredStyle:UIAlertControllerStyleAlert];
             [self presentViewController:alert animated:NO completion:nil];
         }
-        row = [self.subjectPicker selectedRowInComponent:0];
-        NSString *sel = [self.subjects objectAtIndex:row];
-        Question *q = [[Question alloc] initNewQuestionWithTitle:self.questionTitleTextView.text details:self.questionDetailsTextView.text author:[GlobalVals sharedGlobalVals].fullName subject:sel];
+        Question *q = [[Question alloc] initNewQuestionWithTitle:self.questionTitleTextField.text details:self.questionDetailsTextView.text author:[GlobalVals sharedGlobalVals].fullName subject:@""];
         [HTTPManager postQuestion:q completion:^(BOOL success){
             NSNumber *n = [NSNumber numberWithBool:YES];
             [self.navigationController performSelectorOnMainThread:@selector(popViewControllerAnimated:) withObject:n waitUntilDone:NO];
@@ -87,8 +84,9 @@
         }];
     }
     else {
-        [self.questionTitleTextView resignFirstResponder];
-        [self.questionDetailsTextView resignFirstResponder];
+        NSLog(@"ending editing");
+        [self.questionTitleTextField endEditing:YES];
+        [self.questionDetailsTextView endEditing:YES];
     }
 }
 
@@ -104,7 +102,7 @@
 - (void) textViewDidEndEditing:(UITextView *)textView {
     if ([self.questionDetailsTextView.text isEqualToString:@""]) {
         [self.questionDetailsTextView setTextColor: self.textPreviewColor];
-        [self.questionDetailsTextView setText:@" Details"];
+        [self.questionDetailsTextView setText:@"Details"];
     }
     [self.submitButton setTitle:@"Submit"];
     self.editing = NO;
@@ -118,6 +116,14 @@
 - (void) textFieldDidEndEditing:(UITextField *)textField {
     [self.submitButton setTitle:@"Submit"];
     self.editing = NO;
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 1 && indexPath.row == 0) {
+        SubjectPickerTableViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"subjectPicker" ];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 

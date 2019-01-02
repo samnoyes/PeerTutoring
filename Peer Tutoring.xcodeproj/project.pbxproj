@@ -26,6 +26,7 @@
 		B3DD41FB1D4A6AD400244E44 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3DD41FA1D4A6AD400244E44 /* FilterViewController.m */; };
 		B3DD41FE1D4A733300244E44 /* SubjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3DD41FD1D4A733300244E44 /* SubjectTableViewCell.m */; };
 		B3F342971D431C220076C37E /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F342961D431C220076C37E /* CommentTableViewCell.m */; };
+		E5B3C4C421DC413500477B5F /* SubjectPickerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B3C4C321DC413500477B5F /* SubjectPickerTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,8 @@
 		B3E2F1A02076DE3C00E014F1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B3F342951D431C220076C37E /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
 		B3F342961D431C220076C37E /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
+		E5B3C4C221DC413500477B5F /* SubjectPickerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectPickerTableViewController.h; sourceTree = "<group>"; };
+		E5B3C4C321DC413500477B5F /* SubjectPickerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectPickerTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +126,8 @@
 				B333ABA71D3E917B00FDCCA4 /* TableViewController.m */,
 				B3DD41F91D4A6AD400244E44 /* FilterViewController.h */,
 				B3DD41FA1D4A6AD400244E44 /* FilterViewController.m */,
+				E5B3C4C221DC413500477B5F /* SubjectPickerTableViewController.h */,
+				E5B3C4C321DC413500477B5F /* SubjectPickerTableViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -354,6 +359,7 @@
 				B31C92531D4262E5004F81F0 /* Comment.m in Sources */,
 				B3F342971D431C220076C37E /* CommentTableViewCell.m in Sources */,
 				B31C924D1D41D87A004F81F0 /* QuestionDetailViewController.m in Sources */,
+				E5B3C4C421DC413500477B5F /* SubjectPickerTableViewController.m in Sources */,
 				B3DD41FB1D4A6AD400244E44 /* FilterViewController.m in Sources */,
 				B333ABA81D3E917B00FDCCA4 /* TableViewController.m in Sources */,
 				B301DD0E1D447483001C307C /* AskQuestionViewController.m in Sources */,
