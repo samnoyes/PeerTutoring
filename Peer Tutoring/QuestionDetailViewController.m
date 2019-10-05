@@ -103,7 +103,9 @@
 
 - (void) updateView {
     [self.question reloadCommentsWithCompletion: ^{
-        [self.tableView performSelectorOnMainThread: @selector(reloadData) withObject:nil waitUntilDone:NO];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
     }];
 }
 
@@ -132,8 +134,7 @@
     //Given size may not account for screen rotation
     int height = MIN(keyboardSize.height,keyboardSize.width);
     
-    //your other code here..........
-    [self moveView: -height];
+    //[self moveView: -height];
 }
 
 - (void) keyboardWillHide: (NSNotification *)notification {
@@ -143,8 +144,7 @@
     //Given size may not account for screen rotation
     int height = MIN(keyboardSize.height,keyboardSize.width);
     
-    //your other code here..........
-    [self moveView: height];
+    //[self moveView: height];
 }
 
 /*

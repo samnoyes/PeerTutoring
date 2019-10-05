@@ -78,9 +78,11 @@
         Question *q = [[Question alloc] initNewQuestionWithTitle:self.questionTitleTextField.text details:self.questionDetailsTextView.text author:[GlobalVals sharedGlobalVals].fullName subject:@""];
         [HTTPManager postQuestion:q completion:^(BOOL success){
             NSNumber *n = [NSNumber numberWithBool:YES];
-            [self.navigationController performSelectorOnMainThread:@selector(popViewControllerAnimated:) withObject:n waitUntilDone:NO];
             [self.tvc.questions insertObject:q atIndex:0];
-            [self.tvc.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:n];
+                [self.tvc.tableView reloadData];
+            });
         }];
     }
     else {

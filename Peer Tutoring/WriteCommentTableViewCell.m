@@ -28,9 +28,11 @@
     [GlobalVals sharedGlobalVals].fullName = @"Sam Noyes";
     Comment *c = [[Comment alloc] initNewCommentWithText: self.commentTextView.text postID: self.qdvc.question.ID author: [GlobalVals sharedGlobalVals].fullName];
     [HTTPManager postComment: c completion: ^(BOOL success) {
-        [self.qdvc performSelectorOnMainThread: @selector(updateView) withObject:nil waitUntilDone:NO];
-        [self.commentTextView performSelectorOnMainThread:@selector(setText:) withObject:@"" waitUntilDone:NO];
-        NSLog(success ? @"Success!" : @"Failed.");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.qdvc updateView];
+            [self.commentTextView setText:@""];
+            NSLog(success ? @"Success!" : @"Failed.");
+        });
     }];
 }
 

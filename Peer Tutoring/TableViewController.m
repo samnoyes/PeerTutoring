@@ -129,7 +129,10 @@
                     self.questions = [[NSMutableArray alloc] init];
                 }
                 [self.questions addObjectsFromArray:response];
-                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    [self.tableView reloadData];
+                });
+                
             }
             else {
                 self.noMoreQuestions = YES;
@@ -144,12 +147,12 @@
         [HTTPManager getQuestionBatchWithSubjects: self.filteredSubjects offset: self.questions.count completion: ^(NSArray<Question *> *response){
             self.needsNewBatch = YES;
             [self.questions addObjectsFromArray:response];
-            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
             if ([response count] == 0) {
                 self.noMoreQuestions = YES;
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
                 [self.refreshControl endRefreshing];
             });
         }];
